@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { UserLead } from '../types';
-import { DownloadIcon, LockIcon } from './Icons';
+import { DownloadIcon } from './Icons';
 
 interface LeadFormProps {
   onSuccess: () => void;
@@ -124,11 +124,6 @@ export const LeadForm: React.FC<LeadFormProps> = ({ onSuccess }) => {
           )}
         </button>
       </form>
-
-      <div className="mt-5 pt-4 border-t border-gray-100 flex items-center justify-center text-xs text-gray-500 gap-1.5">
-        <LockIcon className="w-3.5 h-3.5 text-green-500" />
-        <span>Thông tin bảo mật 100%. Không spam.</span>
-      </div>
     </div>
   );
 };
