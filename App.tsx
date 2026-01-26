@@ -263,6 +263,26 @@ const App: React.FC = () => {
                        <div className="font-bold text-gray-900">nambds.vn</div>
                     </div>
                   </a>
+
+                  <a href="#" className="group bg-white p-4 rounded-xl shadow-sm border border-gray-200 hover:border-brand-gold/50 hover:shadow-md transition-all flex items-center gap-4">
+                    <div className="bg-blue-50 text-blue-700 p-3 rounded-full group-hover:bg-blue-100 transition-colors">
+                       <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"></path></svg>
+                    </div>
+                    <div className="text-left">
+                       <div className="text-xs text-gray-500 font-semibold uppercase">Facebook Cá Nhân</div>
+                       <div className="font-bold text-gray-900">Nguyễn Nam</div>
+                    </div>
+                  </a>
+
+                  <a href="https://zalo.me/0987182666" target="_blank" rel="noreferrer" className="group bg-white p-4 rounded-xl shadow-sm border border-gray-200 hover:border-brand-gold/50 hover:shadow-md transition-all flex items-center gap-4">
+                    <div className="bg-blue-50 text-blue-500 p-3 rounded-full group-hover:bg-blue-100 transition-colors">
+                       <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M21.928 11.607c-.202-.488-.635-.605-.928-.633V8c0-1.103-.897-2-2-2h-6V4.61c.305-.274.5-.668.5-1.11a1.5 1.5 0 0 0-3 0c0 .442.195.836.5 1.11V6H5c-1.103 0-2 .897-2 2v9.998c0 1.103.897 2 2 2h8.109l7.511 4.506a1 1 0 0 0 1.514-.858V12.72c.49-.49.923-1.026.794-1.113zM18 11h-3.5a.5.5 0 0 1 0-1H18v1zm-3.5 6a.5.5 0 0 1 0 1h-1a.5.5 0 0 1 0-1h1zm-5 0a.5.5 0 0 1 0 1h-1a.5.5 0 0 1 0-1h1zm-5 0a.5.5 0 0 1 0 1h-1a.5.5 0 0 1 0-1h1zm12.55-3.08a.994.994 0 0 0-.251.054L18 15h-1v-2h3v1.08z"/></svg>
+                    </div>
+                    <div className="text-left">
+                       <div className="text-xs text-gray-500 font-semibold uppercase">Kết nối Zalo</div>
+                       <div className="font-bold text-gray-900">0987.182.666</div>
+                    </div>
+                  </a>
                 </div>
             </div>
         </div>
