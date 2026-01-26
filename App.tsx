@@ -14,6 +14,14 @@ const App: React.FC = () => {
     }
   };
 
+  const scrollToRegister = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    const element = document.getElementById('register');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <div className="font-sans text-gray-800 bg-gray-50 min-h-screen">
       <style>{`
@@ -42,7 +50,7 @@ const App: React.FC = () => {
               <div className="text-xs text-gray-400 tracking-wider uppercase font-medium">Chuyên gia đào tạo</div>
             </div>
           </div>
-          <a href="#register" className="hidden md:flex items-center gap-2 bg-white text-brand-900 px-5 py-2.5 rounded-lg font-bold hover:bg-gray-100 transition-all hover:shadow-lg transform hover:-translate-y-0.5">
+          <a href="#register" onClick={scrollToRegister} className="hidden md:flex items-center gap-2 bg-white text-brand-900 px-5 py-2.5 rounded-lg font-bold hover:bg-gray-100 transition-all hover:shadow-lg transform hover:-translate-y-0.5">
             <DownloadIcon className="w-4 h-4" />
             Tải Tài Liệu
           </a>
@@ -79,7 +87,7 @@ const App: React.FC = () => {
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 mb-10">
-              <a href="#register" className="group bg-gradient-to-r from-brand-gold to-yellow-600 hover:from-yellow-400 hover:to-yellow-500 text-white text-center font-bold py-4 px-8 rounded-xl shadow-lg shadow-yellow-500/25 transition-all transform hover:-translate-y-1">
+              <a href="#register" onClick={scrollToRegister} className="group bg-gradient-to-r from-brand-gold to-yellow-600 hover:from-yellow-400 hover:to-yellow-500 text-white text-center font-bold py-4 px-8 rounded-xl shadow-lg shadow-yellow-500/25 transition-all transform hover:-translate-y-1">
                 <span className="flex items-center justify-center gap-2">
                   Tải Xuống Miễn Phí
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
