@@ -30,10 +30,8 @@ export const LeadForm: React.FC<LeadFormProps> = ({ onSuccess }) => {
   return (
     <div className="bg-white p-8 rounded-2xl shadow-2xl border border-gray-100 relative overflow-hidden">
       {/* Decorative Ribbon */}
-      <div className="absolute top-0 right-0">
-         <div className="bg-red-500 text-white text-[10px] font-bold px-8 py-1 rotate-45 translate-x-8 translate-y-4 shadow-md">
-            HOT
-         </div>
+      <div className="absolute top-4 -right-10 w-32 bg-red-500 text-white text-[10px] font-bold py-1 text-center rotate-45 shadow-md">
+        HOT
       </div>
 
       <div className="text-center mb-8 relative">
