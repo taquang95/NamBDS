@@ -349,48 +349,88 @@ const App: React.FC = () => {
       </section>
 
       {/* FOOTER */}
-      <footer className="bg-brand-950 text-gray-400 py-16 border-t border-brand-800">
-          <div className="container mx-auto px-4 text-center md:text-left">
-              <div className="grid md:grid-cols-4 gap-12">
-                  <div className="col-span-1 md:col-span-2">
-                      <div className="flex items-center gap-2 mb-6 justify-center md:justify-start">
-                         <div className="w-8 h-8 bg-brand-gold rounded flex items-center justify-center font-bold text-white">N</div>
-                         <div className="text-white font-bold text-xl">NGUYỄN NAM BĐS</div>
+      <footer className="bg-slate-900 text-slate-300 py-16 border-t border-slate-800 relative overflow-hidden">
+          {/* Decorative background elements */}
+          <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-brand-gold to-transparent opacity-50"></div>
+          
+          <div className="container mx-auto px-4">
+              <div className="grid md:grid-cols-12 gap-12 mb-12">
+                  <div className="md:col-span-5">
+                      <div className="flex items-center gap-3 mb-6">
+                         <div className="w-10 h-10 bg-gradient-to-br from-brand-gold to-yellow-600 rounded-lg flex items-center justify-center font-bold text-white text-xl shadow-lg">N</div>
+                         <div>
+                            <div className="text-white font-bold text-xl leading-none">NGUYỄN NAM BĐS</div>
+                            <div className="text-xs text-brand-gold uppercase tracking-widest mt-1 font-medium">Chuyên Gia Đào Tạo</div>
+                         </div>
                       </div>
-                      <p className="mb-6 max-w-sm mx-auto md:mx-0 leading-relaxed">
-                          Sứ mệnh chia sẻ kiến thức, kinh nghiệm thực chiến bất động sản. Kết nối và xây dựng cộng đồng môi giới chuyên nghiệp, tử tế.
+                      <p className="mb-8 max-w-sm leading-relaxed text-slate-400">
+                          Sứ mệnh chia sẻ kiến thức thực chiến, giúp nhà đầu tư và môi giới BĐS nắm bắt cơ hội tại thị trường Bắc Ninh & Vùng Thủ Đô.
                       </p>
-                      <div className="flex gap-4 justify-center md:justify-start">
-                          <a href="#" className="w-10 h-10 rounded-full bg-brand-800 flex items-center justify-center hover:bg-brand-gold hover:text-brand-900 transition-all">FB</a>
-                          <a href="#" className="w-10 h-10 rounded-full bg-brand-800 flex items-center justify-center hover:bg-brand-gold hover:text-brand-900 transition-all">YT</a>
-                          <a href="#" className="w-10 h-10 rounded-full bg-brand-800 flex items-center justify-center hover:bg-brand-gold hover:text-brand-900 transition-all">Z</a>
+                      <div className="flex gap-4">
+                          <a href="#" className="w-10 h-10 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center hover:bg-brand-gold hover:text-white hover:border-brand-gold transition-all duration-300 group">
+                              <span className="font-bold text-xs group-hover:hidden">FB</span>
+                              <svg className="w-5 h-5 hidden group-hover:block" fill="currentColor" viewBox="0 0 24 24"><path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"/></svg>
+                          </a>
+                          <a href="#" className="w-10 h-10 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center hover:bg-red-600 hover:text-white hover:border-red-600 transition-all duration-300 group">
+                              <span className="font-bold text-xs group-hover:hidden">YT</span>
+                              <svg className="w-5 h-5 hidden group-hover:block" fill="currentColor" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
+                          </a>
+                          <a href="#" className="w-10 h-10 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center hover:bg-blue-500 hover:text-white hover:border-blue-500 transition-all duration-300 group">
+                              <span className="font-bold text-xs group-hover:hidden">ZL</span>
+                              <svg className="w-5 h-5 hidden group-hover:block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
+                          </a>
                       </div>
                   </div>
-                  <div>
-                      <h4 className="text-white font-bold mb-6 text-lg">Liên Hệ</h4>
-                      <ul className="space-y-4">
-                          <li className="flex items-start gap-3 justify-center md:justify-start">
-                            <span className="text-brand-gold">☎</span> 0987-182-666
+                  
+                  <div className="md:col-span-3">
+                      <h4 className="text-white font-bold mb-6 text-lg relative inline-block">
+                          Liên Hệ
+                          <span className="absolute bottom-0 left-0 w-1/2 h-0.5 bg-brand-gold"></span>
+                      </h4>
+                      <ul className="space-y-4 text-sm">
+                          <li className="flex items-start gap-3 group">
+                            <div className="w-8 h-8 rounded bg-slate-800 flex items-center justify-center text-brand-gold shrink-0 group-hover:bg-brand-gold group-hover:text-slate-900 transition-colors">
+                                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" /></svg>
+                            </div>
+                            <div>
+                                <div className="text-slate-500 text-xs uppercase mb-1">Hotline tư vấn</div>
+                                <div className="text-white font-medium hover:text-brand-gold transition-colors">0987-182-666</div>
+                            </div>
                           </li>
-                          <li className="flex items-start gap-3 justify-center md:justify-start">
-                            <span className="text-brand-gold">✉</span> contact@nambds.vn
-                          </li>
-                          <li className="flex items-start gap-3 justify-center md:justify-start">
-                            <span className="text-brand-gold">📍</span> Bắc Ninh, Việt Nam
+                          <li className="flex items-start gap-3 group">
+                            <div className="w-8 h-8 rounded bg-slate-800 flex items-center justify-center text-brand-gold shrink-0 group-hover:bg-brand-gold group-hover:text-slate-900 transition-colors">
+                                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
+                            </div>
+                             <div>
+                                <div className="text-slate-500 text-xs uppercase mb-1">Email hỗ trợ</div>
+                                <div className="text-white font-medium hover:text-brand-gold transition-colors">contact@nambds.vn</div>
+                            </div>
                           </li>
                       </ul>
                   </div>
-                  <div>
-                      <h4 className="text-white font-bold mb-6 text-lg">Thông Tin</h4>
-                      <ul className="space-y-4">
-                          <li><a href="#" className="hover:text-brand-gold transition">Về Nguyễn Nam</a></li>
-                          <li><a href="#" className="hover:text-brand-gold transition">Chính sách bảo mật</a></li>
-                          <li><a href="#" className="hover:text-brand-gold transition">Điều khoản sử dụng</a></li>
-                      </ul>
+
+                   <div className="md:col-span-4">
+                      <h4 className="text-white font-bold mb-6 text-lg relative inline-block">
+                          Địa Chỉ
+                          <span className="absolute bottom-0 left-0 w-1/2 h-0.5 bg-brand-gold"></span>
+                      </h4>
+                      <div className="flex items-start gap-3">
+                            <div className="w-8 h-8 rounded bg-slate-800 flex items-center justify-center text-brand-gold shrink-0 mt-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+                            </div>
+                            <span className="leading-relaxed">
+                                Tầng 3, Tòa nhà The Center, Khu đô thị mới Thuận Thành, Bắc Ninh.
+                            </span>
+                      </div>
                   </div>
               </div>
-              <div className="mt-16 pt-8 border-t border-brand-800 text-center text-sm text-gray-500">
-                  &copy; {new Date().getFullYear()} Nguyễn Nam BĐS. All rights reserved.
+              
+              <div className="pt-8 border-t border-slate-800 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-slate-500">
+                  <div>&copy; {new Date().getFullYear()} Nguyễn Nam BĐS. All rights reserved.</div>
+                  <div className="flex gap-6">
+                      <a href="#" className="hover:text-brand-gold transition-colors">Chính sách bảo mật</a>
+                      <a href="#" className="hover:text-brand-gold transition-colors">Điều khoản sử dụng</a>
+                  </div>
               </div>
           </div>
       </footer>
