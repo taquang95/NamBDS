@@ -43,7 +43,7 @@ export const LeadForm: React.FC<LeadFormProps> = ({ onSuccess }) => {
           <input
             type="text"
             required
-            className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-brand-gold focus:border-transparent outline-none transition-all"
+            className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-brand-gold focus:border-transparent outline-none transition-all text-black"
             placeholder="Ví dụ: Nguyễn Văn A"
             value={formData.name}
             onChange={(e) => setFormData({ ...formData, name: e.target.value })}
@@ -54,7 +54,7 @@ export const LeadForm: React.FC<LeadFormProps> = ({ onSuccess }) => {
           <input
             type="email"
             required
-            className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-brand-gold focus:border-transparent outline-none transition-all"
+            className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-brand-gold focus:border-transparent outline-none transition-all text-black"
             placeholder="email@example.com"
             value={formData.email}
             onChange={(e) => setFormData({ ...formData, email: e.target.value })}
@@ -64,7 +64,7 @@ export const LeadForm: React.FC<LeadFormProps> = ({ onSuccess }) => {
           <label className="block text-sm font-medium text-gray-700 mb-1">Số điện thoại (Tùy chọn)</label>
           <input
             type="tel"
-            className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-brand-gold focus:border-transparent outline-none transition-all"
+            className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-brand-gold focus:border-transparent outline-none transition-all text-black"
             placeholder="0912 xxx xxx"
             value={formData.phone}
             onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
