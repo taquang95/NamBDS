@@ -326,6 +326,44 @@ const App: React.FC = () => {
         </div>
       </section>
 
+      {/* REGISTRATION FORM SECTION */}
+      <section id="register" className="py-20 bg-gradient-to-br from-slate-900 to-brand-900 relative">
+        <div className="absolute inset-0 bg-grid-pattern opacity-10"></div>
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="max-w-5xl mx-auto bg-white/5 backdrop-blur-sm rounded-3xl p-8 md:p-12 border border-white/10 shadow-2xl flex flex-col md:flex-row gap-12 items-center">
+            <div className="md:w-1/2 text-white">
+               <h2 className="text-3xl font-bold mb-4">Đừng Bỏ Lỡ! Đăng Ký Để Nhận Nhiều Hơn Thế</h2>
+               <p className="text-gray-300 mb-8 text-lg">
+                 Đây không chỉ là tải một tài liệu. Đây là bước đầu tiên để gia nhập cộng đồng BĐS thực chiến. Để lại email ngay để nhận bộ tài liệu <span className="text-white font-bold">"Kỹ năng học dự án chuyên sâu"</span> và tự động nhận các <span className="text-brand-gold font-bold">ưu đãi khủng</span> cho các khóa học, sự kiện sắp ra mắt.
+               </p>
+               <div className="space-y-6">
+                  <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 rounded-full bg-brand-gold/20 flex items-center justify-center text-brand-gold shrink-0">
+                      <DownloadIcon className="w-6 h-6" />
+                    </div>
+                    <div>
+                      <div className="font-bold text-lg">Tài liệu trao tay ngay</div>
+                      <div className="text-sm text-gray-400">Gửi tự động qua Zalo & Email trong 30s</div>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 rounded-full bg-brand-gold/20 flex items-center justify-center text-brand-gold shrink-0">
+                      <CheckIcon className="w-6 h-6" />
+                    </div>
+                    <div>
+                      <div className="font-bold text-lg">Quà tặng bí mật về sau</div>
+                      <div className="text-sm text-gray-400">Ưu đãi lớn dành riêng cho danh sách đăng ký hôm nay</div>
+                    </div>
+                  </div>
+               </div>
+            </div>
+            <div className="md:w-1/2 w-full">
+               <LeadForm onSuccess={handleSuccess} />
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* FOOTER */}
       <footer className="bg-slate-900 text-slate-300 py-16 border-t border-slate-800 relative overflow-hidden">
           {/* Decorative background elements */}

@@ -7,7 +7,7 @@ interface LeadFormProps {
 }
 
 export const LeadForm: React.FC<LeadFormProps> = ({ onSuccess }) => {
-  const [formData, setFormData] = useState<UserLead>({ name: '', email: '', phone: '' });
+  const [formData, setFormData] = useState<UserLead>({ name: '', email: '' });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
@@ -40,10 +40,10 @@ export const LeadForm: React.FC<LeadFormProps> = ({ onSuccess }) => {
              <path strokeLinecap="round" strokeLinejoin="round" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
           </svg>
         </div>
-        <h3 className="text-2xl font-bold text-gray-900">Tải Tài Liệu Miễn Phí</h3>
+        <h3 className="text-2xl font-bold text-gray-900">Đăng Ký Tải Tài Liệu Ngay</h3>
         <div className="w-12 h-1 bg-brand-gold mx-auto my-3 rounded-full"></div>
         <p className="text-gray-600 mt-2 text-sm leading-relaxed">
-          Điền thông tin để nhận trọn bộ tài liệu <span className="font-bold text-gray-800">Trị giá 1.600.000đ</span> hoàn toàn miễn phí ngay hôm nay.
+          Điền thông tin bên dưới để nhận link tải tài liệu và không bỏ lỡ những <span className="font-bold text-gray-800">quà tặng giá trị cao (Ebook, Video, Voucher)</span> sẽ được gửi qua email trong thời gian tới.
         </p>
       </div>
 
@@ -81,23 +81,6 @@ export const LeadForm: React.FC<LeadFormProps> = ({ onSuccess }) => {
                 placeholder="email@example.com"
                 value={formData.email}
                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-            />
-          </div>
-        </div>
-        <div className="group">
-          <label className="block text-sm font-semibold text-gray-700 mb-1.5 group-focus-within:text-brand-gold transition-colors">Số điện thoại (Để được tư vấn)</label>
-          <div className="relative">
-             <span className="absolute left-4 top-3.5 text-gray-400">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                </svg>
-             </span>
-            <input
-                type="tel"
-                className="w-full pl-11 pr-4 py-3 rounded-xl border border-gray-300 bg-gray-50 focus:bg-white focus:ring-2 focus:ring-brand-gold focus:border-brand-gold outline-none transition-all text-black font-medium"
-                placeholder="0912 xxx xxx"
-                value={formData.phone}
-                onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
             />
           </div>
         </div>
