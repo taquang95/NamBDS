@@ -104,6 +104,10 @@ export const LeadForm: React.FC<LeadFormProps> = ({ onSuccess }) => {
             </>
           )}
         </button>
+
+        <p className="text-[10px] md:text-[11px] italic text-gray-400 text-center leading-relaxed mt-1">
+          Lưu ý: Bạn phải điền chính xác Email để nhận được tài liệu
+        </p>
       </form>
     </div>
   );
