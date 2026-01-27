@@ -62,8 +62,16 @@ const App: React.FC = () => {
           50% { transform: translateY(-20px) rotate(0deg); }
           100% { transform: translateY(0px) rotate(3deg); }
         }
+        @keyframes shake {
+          0%, 100% { transform: rotate(0deg); }
+          25% { transform: rotate(5deg); }
+          75% { transform: rotate(-5deg); }
+        }
         .animate-float {
           animation: float 6s ease-in-out infinite;
+        }
+        .animate-shake-slow {
+          animation: shake 0.5s ease-in-out infinite;
         }
         .bg-grid-pattern {
           background-image: linear-gradient(to right, rgba(255,255,255,0.05) 1px, transparent 1px),
@@ -73,6 +81,19 @@ const App: React.FC = () => {
       `}</style>
       
       <SocialProofPopup />
+
+      {/* FLOATING CTA BUTTON RIGHT SIDE */}
+      <div className="fixed right-4 md:right-8 top-1/2 -translate-y-1/2 z-[60] flex flex-col items-center">
+        <a 
+          href="#register" 
+          onClick={scrollToRegister}
+          className="group relative flex flex-col items-center justify-center w-20 h-20 md:w-24 md:h-24 bg-gradient-to-br from-brand-gold to-yellow-600 text-white rounded-full shadow-[0_0_20px_rgba(245,158,11,0.5)] transition-all hover:scale-110 active:scale-95 animate-shake-slow"
+        >
+          <div className="absolute inset-0 bg-yellow-400 rounded-full animate-ping opacity-20 group-hover:opacity-40"></div>
+          <DownloadIcon className="w-8 h-8 md:w-10 md:h-10 mb-1" />
+          <span className="text-[10px] md:text-xs font-bold uppercase text-center leading-tight px-2">Tải Ngay</span>
+        </a>
+      </div>
 
       {/* HEADER */}
       <header className="bg-brand-900/95 backdrop-blur-sm text-white py-4 sticky top-0 z-50 shadow-lg border-b border-white/10 opacity-0 animate-reveal-down">
@@ -287,7 +308,7 @@ const App: React.FC = () => {
                   </a>
                   <a href="https://www.facebook.com/share/1ECmmf8ipx/?mibextid=wwXIfr" target="_blank" rel="noreferrer" className="group bg-white p-4 rounded-xl shadow-sm border border-gray-200 hover:border-brand-gold/50 hover:shadow-md transition-all flex items-center gap-4 transform hover:-translate-x-1">
                     <div className="bg-blue-50 text-blue-700 p-3 rounded-full group-hover:bg-blue-100 transition-colors transform group-hover:scale-110">
-                       <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"></path></svg>
+                       <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"></path></svg>
                     </div>
                     <div className="text-left">
                        <div className="text-xs text-gray-500 font-semibold uppercase">Facebook</div>
@@ -316,7 +337,7 @@ const App: React.FC = () => {
             <div className="md:w-1/2 text-white">
                <h2 className="text-3xl font-bold mb-4 transform transition-transform hover:translate-x-1">Đừng Bỏ Lỡ! Đăng Ký Để Nhận Nhiều Hơn Thế</h2>
                <p className="text-gray-300 mb-6 text-lg">
-                 Đây không chỉ là tải một tài liệu. Đây là bước đầu tiên để gia nhập cộng đồng BĐS thực chiến. Để lại email ngay để nhận bộ tài liệu <span className="text-white font-bold">"Kỹ năng học dự án chuyên sâu"</span>.
+                 Đây không chỉ là tải một tài liệu. Đây là bước đầu tiên để bạn trở thành <span className="text-white font-bold tracking-wide">Best Seller</span>. Để lại email ngay để nhận bộ tài liệu <span className="text-white font-bold">"Kỹ năng học dự án chuyên sâu"</span>.
                </p>
                <div className="mb-8 p-4 rounded-xl border border-blue-400/30 bg-blue-900/30 backdrop-blur-md relative overflow-hidden group transform transition-all hover:scale-[1.02]">
                   <div className="absolute top-0 left-0 w-1 h-full bg-blue-500"></div>
