@@ -336,9 +336,18 @@ const App: React.FC = () => {
           <div className="max-w-5xl mx-auto bg-white/5 backdrop-blur-sm rounded-3xl p-8 md:p-12 border border-white/10 shadow-2xl flex flex-col md:flex-row gap-12 items-center">
             <div className="md:w-1/2 text-white">
                <h2 className="text-3xl font-bold mb-4">Đừng Bỏ Lỡ! Đăng Ký Để Nhận Nhiều Hơn Thế</h2>
-               <p className="text-gray-300 mb-8 text-lg">
+               <p className="text-gray-300 mb-6 text-lg">
                  Đây không chỉ là tải một tài liệu. Đây là bước đầu tiên để gia nhập cộng đồng BĐS thực chiến. Để lại email ngay để nhận bộ tài liệu <span className="text-white font-bold">"Kỹ năng học dự án chuyên sâu"</span> và tự động nhận các <span className="text-brand-gold font-bold">ưu đãi khủng</span> cho các khóa học, sự kiện sắp ra mắt.
                </p>
+               
+               <div className="mb-8 p-4 rounded-xl border border-blue-400/30 bg-blue-900/30 backdrop-blur-md relative overflow-hidden group">
+                  <div className="absolute top-0 left-0 w-1 h-full bg-blue-500"></div>
+                  <div className="absolute -right-4 -top-4 w-20 h-20 bg-blue-500/20 rounded-full blur-xl group-hover:bg-blue-500/30 transition-colors"></div>
+                  <p className="text-lg font-medium text-blue-100 relative z-10">
+                      Tài liệu <span className="line-through text-gray-400 mx-1 decoration-red-500/60 decoration-2">1.600.000đ</span> được <span className="text-brand-gold font-bold uppercase text-xl ml-1">miễn phí hôm nay</span>
+                  </p>
+               </div>
+
                <div className="space-y-6">
                   <div className="flex items-center gap-4">
                     <div className="w-12 h-12 rounded-full bg-brand-gold/20 flex items-center justify-center text-brand-gold shrink-0">
