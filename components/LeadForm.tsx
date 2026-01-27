@@ -43,7 +43,7 @@ export const LeadForm: React.FC<LeadFormProps> = ({ onSuccess }) => {
         <h3 className="text-2xl font-bold text-gray-900">Tải Tài Liệu Miễn Phí</h3>
         <div className="w-12 h-1 bg-brand-gold mx-auto my-3 rounded-full"></div>
         <p className="text-gray-600 mt-2 text-sm leading-relaxed">
-          Điền thông tin để nhận trọn bộ tài liệu <span className="font-bold text-gray-800">Trị giá 5.000.000đ</span> hoàn toàn miễn phí ngay hôm nay.
+          Điền thông tin để nhận trọn bộ tài liệu <span className="font-bold text-gray-800">Trị giá 1.600.000đ</span> hoàn toàn miễn phí ngay hôm nay.
         </p>
       </div>
 

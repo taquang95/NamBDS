@@ -22,6 +22,14 @@ const App: React.FC = () => {
     }
   };
 
+  const scrollToPreview = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    const element = document.getElementById('preview');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <div className="font-sans text-gray-800 bg-gray-50 min-h-screen">
       <style>{`
@@ -72,7 +80,7 @@ const App: React.FC = () => {
           <div className="md:col-span-7">
             <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md text-brand-gold px-4 py-1.5 rounded-full text-sm font-bold mb-6 border border-brand-gold/20 shadow-lg">
               <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
-              CẬP NHẬT THỊ TRƯỜNG 2024 - 2025
+              KỸ NĂNG HỌC CHUYÊN SÂU DỰ ÁN
             </div>
             
             <h1 className="text-4xl md:text-6xl font-extrabold mb-6 leading-tight tracking-tight">
@@ -83,7 +91,7 @@ const App: React.FC = () => {
             </h1>
             
             <p className="text-lg md:text-xl text-gray-300 mb-8 max-w-xl leading-relaxed">
-              Bán ở đâu phải là chuyên gia ở đó. Tải ngay bộ tài liệu <span className="text-white font-semibold">phân tích thị trường Bắc Ninh, Thuận Thành</span> và dự án The Center để chốt khách nhanh hơn.
+              Tải ngay bộ tài liệu về <span className="text-white font-semibold">kỹ năng học dự án</span> để gia tăng tỷ lệ chuyển đổi trong bán hàng.
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 mb-10">
@@ -95,7 +103,7 @@ const App: React.FC = () => {
                   </svg>
                 </span>
               </a>
-              <a href="#preview" className="group bg-white/5 backdrop-blur-sm border border-white/20 hover:bg-white/10 text-white text-center font-semibold py-4 px-8 rounded-xl transition-all">
+              <a href="#preview" onClick={scrollToPreview} className="group bg-white/5 backdrop-blur-sm border border-white/20 hover:bg-white/10 text-white text-center font-semibold py-4 px-8 rounded-xl transition-all">
                 Xem Nội Dung
               </a>
             </div>
@@ -134,10 +142,10 @@ const App: React.FC = () => {
                      <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=800&auto=format&fit=crop" alt="Real Estate Analysis" className="w-full h-full object-cover opacity-60 mix-blend-overlay" />
                      <div className="absolute inset-0 bg-gradient-to-t from-brand-900 via-brand-900/80 to-transparent p-6 flex flex-col justify-end">
                         <div className="border-l-4 border-brand-gold pl-4 mb-4">
-                          <h3 className="text-white text-3xl font-bold uppercase leading-none mb-1">BÁO CÁO</h3>
-                          <p className="text-brand-gold font-bold text-xl uppercase tracking-widest">Thị Trường</p>
+                          <h3 className="text-white text-3xl font-bold uppercase leading-none mb-1">KỸ NĂNG</h3>
+                          <p className="text-brand-gold font-bold text-xl uppercase tracking-widest">CHUYÊN MÔN</p>
                         </div>
-                        <p className="text-gray-300 text-sm mb-6">Phân tích chuyên sâu: Bắc Ninh - Thuận Thành - The Center</p>
+                        <p className="text-gray-300 text-sm mb-6">Phân tích chuyên sâu: Tỉnh/Thành, Quận/Huyện, Dự án,…</p>
                         <div className="bg-white/10 backdrop-blur-md p-3 rounded-lg border border-white/20">
                           <div className="text-xs text-gray-300 uppercase tracking-wider mb-1">Author</div>
                           <div className="text-white font-bold">Nguyễn Nam BĐS</div>
@@ -168,15 +176,15 @@ const App: React.FC = () => {
                 <LocationIcon className="w-8 h-8"/>
               </div>
               <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors">1. Kiến Thức Thị Trường Tỉnh</h3>
-              <p className="text-sm text-gray-500 mb-6 font-semibold uppercase tracking-wider">Tầm nhìn vĩ mô & Bắc Ninh</p>
+              <p className="text-sm text-gray-500 mb-6 font-semibold uppercase tracking-wider">KINH TẾ VĨ MÔ, GIAO THÔNG, DÂN CƯ</p>
               <ul className="space-y-4 text-gray-700">
                 <li className="flex gap-3 items-start">
                   <div className="mt-1 bg-green-100 p-0.5 rounded-full"><CheckIcon className="w-4 h-4 text-green-600 shrink-0" /></div>
-                  <span className="text-sm"><strong>Quy hoạch Vùng Thủ Đô:</strong> Phân tích tác động của Vành đai 4 và vị trí cửa ngõ Đông Bắc.</span>
+                  <span className="text-sm"><strong>Vị trí:</strong> nằm ở đâu? Cách Thành phố lớn bao xa? Các Tỉnh/Thành tiếp giáp?</span>
                 </li>
                 <li className="flex gap-3 items-start">
                   <div className="mt-1 bg-green-100 p-0.5 rounded-full"><CheckIcon className="w-4 h-4 text-green-600 shrink-0" /></div>
-                  <span className="text-sm"><strong>Chỉ số kinh tế (GRDP/FDI):</strong> Sức hút từ thủ phủ công nghiệp và dòng vốn ngoại.</span>
+                  <span className="text-sm"><strong>Kinh tế:</strong> Tốc độ phát triển? Ngành chủ lực? Thu nhập bình quân?</span>
                 </li>
               </ul>
             </div>
@@ -187,15 +195,15 @@ const App: React.FC = () => {
                 <ChartIcon className="w-8 h-8"/>
               </div>
               <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-amber-600 transition-colors">2. Kiến Thức Thị Trường Huyện</h3>
-              <p className="text-sm text-gray-500 mb-6 font-semibold uppercase tracking-wider">Tiềm năng Thuận Thành</p>
+              <p className="text-sm text-gray-500 mb-6 font-semibold uppercase tracking-wider">TIỀM NĂNG CỦA HUYỆN</p>
               <ul className="space-y-4 text-gray-700">
                 <li className="flex gap-3 items-start">
                   <div className="mt-1 bg-green-100 p-0.5 rounded-full"><CheckIcon className="w-4 h-4 text-green-600 shrink-0" /></div>
-                  <span className="text-sm"><strong>Quy hoạch đô thị:</strong> Lộ trình lên Thị xã, phát triển đô thị vệ tinh dọc sông Đuống.</span>
+                  <span className="text-sm"><strong>Giao thông:</strong> Các tuyến đường chính? Các dự án tương lai? Cơ sở hạ tầng?</span>
                 </li>
                 <li className="flex gap-3 items-start">
                   <div className="mt-1 bg-green-100 p-0.5 rounded-full"><CheckIcon className="w-4 h-4 text-green-600 shrink-0" /></div>
-                  <span className="text-sm"><strong>Hạ tầng đột phá:</strong> Cầu Phật Tích, QL38 và các trục xương sống.</span>
+                  <span className="text-sm"><strong>Đô thị:</strong> Các dự án xung quanh? Các dự án tương lai?</span>
                 </li>
               </ul>
             </div>
@@ -206,15 +214,15 @@ const App: React.FC = () => {
                 <BuildingIcon className="w-8 h-8"/>
               </div>
               <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-red-600 transition-colors">3. Kiến Thức Dự Án</h3>
-              <p className="text-sm text-gray-500 mb-6 font-semibold uppercase tracking-wider">Phân tích The Center</p>
+              <p className="text-sm text-gray-500 mb-6 font-semibold uppercase tracking-wider">PHÂN TÍCH CHUYÊN SÂU DỰ ÁN</p>
               <ul className="space-y-4 text-gray-700">
                 <li className="flex gap-3 items-start">
                   <div className="mt-1 bg-green-100 p-0.5 rounded-full"><CheckIcon className="w-4 h-4 text-green-600 shrink-0" /></div>
-                  <span className="text-sm"><strong>Vị trí & Pháp lý:</strong> Tọa độ "Lõi" trung tâm hành chính, pháp lý sổ đỏ an toàn tuyệt đối.</span>
+                  <span className="text-sm"><strong>Thông tin tổng quan:</strong> Tên dự án? Vị trí? Pháp lý? Quy mô? Chủ đầu tư?</span>
                 </li>
                 <li className="flex gap-3 items-start">
                   <div className="mt-1 bg-green-100 p-0.5 rounded-full"><CheckIcon className="w-4 h-4 text-green-600 shrink-0" /></div>
-                  <span className="text-sm"><strong>Bài toán đầu tư:</strong> So sánh giá khu vực, chiến lược dòng tiền và kịch bản tăng vốn.</span>
+                  <span className="text-sm"><strong>Sản phẩm:</strong> Giá bán? Ưu đãi? Ngân hàng? Đối thủ cạnh tranh? Thanh khoản? Tiềm năng</span>
                 </li>
               </ul>
             </div>
@@ -247,7 +255,7 @@ const App: React.FC = () => {
                     <path d="M9.352 4C4.456 7.456 1 13.12 1 19.36c0 5.088 3.072 8.064 6.624 8.064 3.36 0 5.856-2.688 5.856-5.856 0-3.168-2.208-5.472-5.088-5.472-.576 0-1.344.096-1.536.192.48-3.264 3.552-7.104 6.624-9.024L9.352 4zm16.512 0c-4.8 3.456-8.256 9.12-8.256 15.36 0 5.088 3.072 8.064 6.624 8.064 3.264 0 5.856-2.688 5.856-5.856 0-3.168-2.304-5.472-5.184-5.472-.576 0-1.248.096-1.44.192.48-3.264 3.552-7.104 6.624-9.024L25.864 4z" />
                   </svg>
                   <p className="text-gray-700 text-lg italic leading-relaxed relative z-10 pl-6">
-                      "Kiến thức là chìa khóa để mở cánh cửa niềm tin của khách hàng. Với kinh nghiệm thực chiến nhiều năm tại thị trường Bắc Ninh, tôi đã đúc kết bộ tài liệu này nhằm giúp các bạn môi giới mới và lâu năm có cái nhìn tổng quan và chi tiết nhất."
+                      "Kiến thức là chìa khóa để mở cánh cửa niềm tin của khách hàng. Với kinh nghiệm thực chiến nhiều năm trong ngành Bất Động Sản, tôi đã đúc kết bộ tài liệu này nhằm giúp các bạn môi giới mới và lâu năm có cái nhìn tổng quan và chi tiết nhất về một dự án bất kỳ"
                   </p>
                 </div>
 
@@ -272,7 +280,7 @@ const App: React.FC = () => {
                     </div>
                   </a>
 
-                  <a href="#" className="group bg-white p-4 rounded-xl shadow-sm border border-gray-200 hover:border-brand-gold/50 hover:shadow-md transition-all flex items-center gap-4">
+                  <a href="https://www.facebook.com/nambds.vn" target="_blank" rel="noreferrer" className="group bg-white p-4 rounded-xl shadow-sm border border-gray-200 hover:border-brand-gold/50 hover:shadow-md transition-all flex items-center gap-4">
                     <div className="bg-blue-50 text-blue-700 p-3 rounded-full group-hover:bg-blue-100 transition-colors">
                        <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"></path></svg>
                     </div>
@@ -296,86 +304,6 @@ const App: React.FC = () => {
         </div>
       </section>
 
-      {/* REGISTER / DOWNLOAD SECTION */}
-      <section id="register" className="py-24 bg-brand-900 relative">
-         <div className="absolute inset-0 bg-gradient-to-br from-brand-900 to-slate-900"></div>
-         {/* Decorative grid */}
-         <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:40px_40px]"></div>
-
-         <div className="container mx-auto px-4 relative z-10">
-             <div className="flex flex-col md:flex-row gap-16 items-start justify-center">
-                 {/* Left Side Content */}
-                 <div className="md:w-1/2 mt-8">
-                     <div className="inline-block px-4 py-1.5 rounded-full bg-brand-gold/20 border border-brand-gold/30 text-brand-gold font-bold text-sm mb-6 animate-pulse">
-                        CƠ HỘI CÓ HẠN
-                     </div>
-                     <h2 className="text-4xl md:text-5xl font-extrabold text-white mb-6 leading-tight">
-                         Sẵn Sàng Nâng Tầm <br/>
-                         <span className="text-brand-gold">Kiến Thức Của Bạn?</span>
-                     </h2>
-                     <p className="text-gray-300 text-lg mb-10 leading-relaxed">
-                         Đừng để khách hàng hỏi mà bạn không biết trả lời. Chỉ mất 30 giây để tải xuống tài liệu đã được biên soạn công phu này. <span className="text-white font-semibold">Hoàn toàn miễn phí.</span>
-                     </p>
-                     
-                     <div className="space-y-8">
-                         <div className="flex items-center gap-6 group">
-                             <div className="w-14 h-14 rounded-full bg-brand-800 border border-brand-700 flex items-center justify-center font-bold text-2xl text-white group-hover:bg-brand-gold group-hover:text-brand-900 transition-colors duration-300 shadow-lg">1</div>
-                             <div>
-                                 <h4 className="font-bold text-xl text-white group-hover:text-brand-gold transition-colors">Đăng ký nhận tài liệu</h4>
-                                 <p className="text-sm text-gray-400">Điền chính xác Email để hệ thống gửi link.</p>
-                             </div>
-                         </div>
-                         <div className="flex items-center gap-6 group">
-                             <div className="w-14 h-14 rounded-full bg-brand-800 border border-brand-700 flex items-center justify-center font-bold text-2xl text-white group-hover:bg-brand-gold group-hover:text-brand-900 transition-colors duration-300 shadow-lg">2</div>
-                             <div>
-                                 <h4 className="font-bold text-xl text-white group-hover:text-brand-gold transition-colors">Nhận Link Tải Tự Động</h4>
-                                 <p className="text-sm text-gray-400">Check mail và tải PDF chất lượng cao (15MB).</p>
-                             </div>
-                         </div>
-                         <div className="flex items-center gap-6 group">
-                             <div className="w-14 h-14 rounded-full bg-brand-800 border border-brand-700 flex items-center justify-center font-bold text-2xl text-white group-hover:bg-brand-gold group-hover:text-brand-900 transition-colors duration-300 shadow-lg">3</div>
-                             <div>
-                                 <h4 className="font-bold text-xl text-white group-hover:text-brand-gold transition-colors">Áp Dụng & Chốt Khách</h4>
-                                 <p className="text-sm text-gray-400">Tự tin tư vấn với kiến thức chuyên sâu.</p>
-                             </div>
-                         </div>
-                     </div>
-                 </div>
-
-                 {/* Right Side Form */}
-                 <div className="md:w-1/2 max-w-md w-full">
-                     {!downloadReady ? (
-                         <div className="relative">
-                            <div className="absolute inset-0 bg-brand-gold blur-2xl opacity-20 animate-pulse"></div>
-                            <LeadForm onSuccess={handleSuccess} />
-                         </div>
-                     ) : (
-                         <div id="download-area" className="bg-white p-10 rounded-2xl shadow-2xl text-center animate-fade-in border-2 border-green-500">
-                             <div className="w-24 h-24 bg-green-50 text-green-500 rounded-full flex items-center justify-center mx-auto mb-8 shadow-inner">
-                                 <CheckIcon className="w-12 h-12" />
-                             </div>
-                             <h3 className="text-3xl font-bold text-gray-900 mb-4">Đăng Ký Thành Công!</h3>
-                             <p className="text-gray-600 mb-8 text-lg">
-                                 Hệ thống đã gửi tài liệu đến email của bạn. Bạn cũng có thể tải xuống ngay lập tức bên dưới.
-                             </p>
-                             <a 
-                                href="#" 
-                                className="block w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-bold py-5 rounded-xl shadow-lg shadow-green-500/30 transition-all flex items-center justify-center gap-3 transform hover:-translate-y-1"
-                                onClick={(e) => {
-                                    e.preventDefault();
-                                    alert("Bắt đầu tải xuống file PDF...");
-                                }}
-                             >
-                                 <DownloadIcon className="w-6 h-6" />
-                                 TẢI FILE PDF NGAY (15MB)
-                             </a>
-                         </div>
-                     )}
-                 </div>
-             </div>
-         </div>
-      </section>
-
       {/* FOOTER */}
       <footer className="bg-slate-900 text-slate-300 py-16 border-t border-slate-800 relative overflow-hidden">
           {/* Decorative background elements */}
@@ -392,18 +320,18 @@ const App: React.FC = () => {
                          </div>
                       </div>
                       <p className="mb-8 max-w-sm leading-relaxed text-slate-400">
-                          Sứ mệnh chia sẻ kiến thức thực chiến, giúp nhà đầu tư và môi giới BĐS nắm bắt cơ hội tại thị trường Bắc Ninh & Vùng Thủ Đô.
+                          Sứ mệnh chia sẻ kiến thức thực chiến, giúp môi giới BĐS nhanh chóng tiếp cận dự án bất kỳ với tâm thế chủ động.
                       </p>
                       <div className="flex gap-4">
-                          <a href="#" className="w-10 h-10 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center hover:bg-brand-gold hover:text-white hover:border-brand-gold transition-all duration-300 group">
+                          <a href="https://www.facebook.com/nambds.vn" target="_blank" rel="noreferrer" className="w-10 h-10 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center hover:bg-brand-gold hover:text-white hover:border-brand-gold transition-all duration-300 group">
                               <span className="font-bold text-xs group-hover:hidden">FB</span>
                               <svg className="w-5 h-5 hidden group-hover:block" fill="currentColor" viewBox="0 0 24 24"><path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"/></svg>
                           </a>
-                          <a href="#" className="w-10 h-10 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center hover:bg-red-600 hover:text-white hover:border-red-600 transition-all duration-300 group">
+                          <a href="https://youtube.com/channel/UCEAXqLqCiSkN5v4y1sRZTwQ?sub_confirmation=1" target="_blank" rel="noreferrer" className="w-10 h-10 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center hover:bg-red-600 hover:text-white hover:border-red-600 transition-all duration-300 group">
                               <span className="font-bold text-xs group-hover:hidden">YT</span>
                               <svg className="w-5 h-5 hidden group-hover:block" fill="currentColor" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
                           </a>
-                          <a href="#" className="w-10 h-10 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center hover:bg-blue-500 hover:text-white hover:border-blue-500 transition-all duration-300 group">
+                          <a href="https://zalo.me/0987182666" target="_blank" rel="noreferrer" className="w-10 h-10 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center hover:bg-blue-500 hover:text-white hover:border-blue-500 transition-all duration-300 group">
                               <span className="font-bold text-xs group-hover:hidden">ZL</span>
                               <svg className="w-5 h-5 hidden group-hover:block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
                           </a>
@@ -422,7 +350,7 @@ const App: React.FC = () => {
                             </div>
                             <div>
                                 <div className="text-slate-500 text-xs uppercase mb-1">Hotline tư vấn</div>
-                                <div className="text-white font-medium hover:text-brand-gold transition-colors">0987-182-666</div>
+                                <a href="tel:0987182666" className="text-white font-medium hover:text-brand-gold transition-colors block">0987-182-666</a>
                             </div>
                           </li>
                           <li className="flex items-start gap-3 group">
@@ -431,7 +359,7 @@ const App: React.FC = () => {
                             </div>
                              <div>
                                 <div className="text-slate-500 text-xs uppercase mb-1">Email hỗ trợ</div>
-                                <div className="text-white font-medium hover:text-brand-gold transition-colors">contact@nambds.vn</div>
+                                <a href="mailto:nambn666@gmail.com" className="text-white font-medium hover:text-brand-gold transition-colors block">nambn666@gmail.com</a>
                             </div>
                           </li>
                       </ul>
@@ -439,17 +367,51 @@ const App: React.FC = () => {
 
                    <div className="md:col-span-4">
                       <h4 className="text-white font-bold mb-6 text-lg relative inline-block">
-                          Địa Chỉ
+                          Kết Nối
                           <span className="absolute bottom-0 left-0 w-1/2 h-0.5 bg-brand-gold"></span>
                       </h4>
-                      <div className="flex items-start gap-3">
-                            <div className="w-8 h-8 rounded bg-slate-800 flex items-center justify-center text-brand-gold shrink-0 mt-1">
-                                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
-                            </div>
-                            <span className="leading-relaxed">
-                                Tầng 3, Tòa nhà The Center, Khu đô thị mới Thuận Thành, Bắc Ninh.
-                            </span>
-                      </div>
+                      <ul className="space-y-4 text-sm">
+                          <li className="group">
+                             <a href="https://nambds.vn" target="_blank" rel="noreferrer" className="flex items-center gap-3 hover:text-brand-gold transition-colors">
+                                <div className="w-8 h-8 rounded bg-slate-800 flex items-center justify-center text-brand-gold shrink-0 group-hover:bg-brand-gold group-hover:text-slate-900 transition-colors">
+                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" /></svg>
+                                </div>
+                                <span className="font-medium">Website: nambds.vn</span>
+                             </a>
+                          </li>
+                          <li className="group">
+                             <a href="https://www.facebook.com/nambds.vn" target="_blank" rel="noreferrer" className="flex items-center gap-3 hover:text-brand-gold transition-colors">
+                                <div className="w-8 h-8 rounded bg-slate-800 flex items-center justify-center text-brand-gold shrink-0 group-hover:bg-brand-gold group-hover:text-slate-900 transition-colors">
+                                    <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"></path></svg>
+                                </div>
+                                <span className="font-medium">Facebook: Nguyễn Nam BĐS</span>
+                             </a>
+                          </li>
+                          <li className="group">
+                             <a href="https://zalo.me/0987182666" target="_blank" rel="noreferrer" className="flex items-center gap-3 hover:text-brand-gold transition-colors">
+                                <div className="w-8 h-8 rounded bg-slate-800 flex items-center justify-center text-brand-gold shrink-0 group-hover:bg-brand-gold group-hover:text-slate-900 transition-colors">
+                                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
+                                </div>
+                                <span className="font-medium">Zalo: 0987.182.666</span>
+                             </a>
+                          </li>
+                          <li className="group">
+                             <a href="https://youtube.com/channel/UCEAXqLqCiSkN5v4y1sRZTwQ?sub_confirmation=1" target="_blank" rel="noreferrer" className="flex items-center gap-3 hover:text-brand-gold transition-colors">
+                                <div className="w-8 h-8 rounded bg-slate-800 flex items-center justify-center text-brand-gold shrink-0 group-hover:bg-brand-gold group-hover:text-slate-900 transition-colors">
+                                    <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
+                                </div>
+                                <span className="font-medium">Youtube: Nguyễn Nam BĐS</span>
+                             </a>
+                          </li>
+                          <li className="group">
+                             <a href="https://tiktok.com/@nguyennam.bds" target="_blank" rel="noreferrer" className="flex items-center gap-3 hover:text-brand-gold transition-colors">
+                                <div className="w-8 h-8 rounded bg-slate-800 flex items-center justify-center text-brand-gold shrink-0 group-hover:bg-brand-gold group-hover:text-slate-900 transition-colors">
+                                    <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/></svg>
+                                </div>
+                                <span className="font-medium">Tiktok: Nguyễn Nam BĐS</span>
+                             </a>
+                          </li>
+                      </ul>
                   </div>
               </div>
               
