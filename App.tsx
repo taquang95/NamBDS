@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { LeadForm } from './components/LeadForm';
 import { CheckIcon, LocationIcon, ChartIcon, BuildingIcon, DownloadIcon } from './components/Icons';
+import { SocialProofPopup } from './components/SocialProofPopup';
 
 const App: React.FC = () => {
   const [downloadReady, setDownloadReady] = useState(false);
@@ -48,6 +49,8 @@ const App: React.FC = () => {
         }
       `}</style>
       
+      <SocialProofPopup />
+
       {/* HEADER */}
       <header className="bg-brand-900/95 backdrop-blur-sm text-white py-4 sticky top-0 z-50 shadow-lg border-b border-white/10">
         <div className="container mx-auto px-4 flex justify-between items-center">
@@ -147,7 +150,7 @@ const App: React.FC = () => {
                         </div>
                         <p className="text-gray-300 text-sm mb-6">Phân tích chuyên sâu: Tỉnh/Thành, Quận/Huyện, Dự án,…</p>
                         <div className="bg-white/10 backdrop-blur-md p-3 rounded-lg border border-white/20">
-                          <div className="text-xs text-gray-300 uppercase tracking-wider mb-1">Author</div>
+                          <div className="text-xs text-gray-300 uppercase tracking-wider mb-1">Tác giả</div>
                           <div className="text-white font-bold">Nguyễn Nam BĐS</div>
                         </div>
                      </div>
