@@ -4,55 +4,34 @@ interface LeadFormProps {
   onSuccess: () => void;
 }
 
-/**
- * LeadForm component tích hợp GetResponse Web Connect Form.
- * Lưu ý: Để form hoạt động và chuyển hướng chính xác, hãy cấu hình 
- * "Thank you page" trong cài đặt form tại GetResponse là: https://yourdomain.com/#thanks
- */
 export const LeadForm: React.FC<LeadFormProps> = () => {
+  // Use a variable cast to any to use the custom element without breaking global JSX types
+  const GetResponseForm = 'getresponse-form' as any;
+
   return (
-    <div className="bg-white p-2 md:p-4 rounded-3xl shadow-2xl border border-gray-100 relative overflow-hidden flex flex-col h-full min-h-[450px] justify-center">
-      {/* Header trang trí phía trên form (nếu form GetResponse chưa có tiêu đề) */}
-      <div className="text-center mb-4 px-4 pt-4">
-        <h3 className="text-xl font-black text-brand-900 uppercase tracking-tight">ĐĂNG KÝ NHẬN TÀI LIỆU</h3>
-        <p className="text-gray-500 text-xs mt-1">
-          Hệ thống sẽ tự động gửi tài liệu qua Email sau khi bạn đăng ký thành công.
-        </p>
-      </div>
-
-      {/* Container chứa form GetResponse */}
-      <div className="flex-1 w-full overflow-hidden">
-        <div 
-          className="gr-form-wrapper"
-          dangerouslySetInnerHTML={{ 
-            __html: '<getresponse-form form-id="51568c23-6fa2-4e31-b7f9-1cdab6dba933" e="1"></getresponse-form>' 
-          }} 
-        />
-      </div>
+    <div className="bg-white p-6 rounded-3xl shadow-2xl border border-gray-100 min-h-[450px] relative overflow-hidden flex flex-col">
       
-      <div className="pb-6 px-6 text-center">
-        <div className="flex items-center justify-center gap-2 opacity-50 grayscale hover:grayscale-0 transition-all">
-            <svg className="w-3 h-3 text-green-600" fill="currentColor" viewBox="0 0 20 20">
-              <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"/>
-            </svg>
-            <span className="text-[10px] text-gray-500 font-medium italic">Bảo mật thông tin bởi GetResponse Web Connect</span>
-        </div>
+      {/* Tiêu đề hỗ trợ (sẽ bị Form che đi khi load xong) */}
+      <div className="absolute inset-0 flex flex-col items-center justify-center -z-10 p-8 text-center space-y-4">
+         <div className="w-12 h-12 border-4 border-brand-gold border-t-transparent rounded-full animate-spin"></div>
+         <div>
+            <h4 className="font-bold text-gray-900">Đang tải Form đăng ký...</h4>
+            <p className="text-sm text-gray-500 mt-2">
+                Vui lòng chờ trong giây lát.
+            </p>
+         </div>
       </div>
 
-      <style>{`
-        /* Tinh chỉnh CSS để form GetResponse hiển thị đẹp hơn trong container React */
-        .gr-form-wrapper {
-          width: 100%;
-          display: flex;
-          justify-content: center;
-        }
-        /* Ép form GetResponse không vượt quá container */
-        .gr-form-wrapper iframe, 
-        .gr-form-wrapper form {
-          max-width: 100% !important;
-          margin: 0 auto !important;
-        }
-      `}</style>
+      {/* --- MÃ NHÚNG GETRESPONSE --- */}
+      {/* Form ID: 51568c23-6fa2-4e31-b7f9-1cdab6dba933 */}
+      <div className="w-full h-full relative z-10">
+          <GetResponseForm form-id="51568c23-6fa2-4e31-b7f9-1cdab6dba933" e="1"></GetResponseForm>
+      </div>
+
+      <div className="mt-auto pt-4 flex items-center justify-center gap-2 opacity-60">
+          <svg className="w-3 h-3 text-green-600" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"/></svg>
+          <span className="text-[10px] text-gray-500 font-medium">Bảo mật thông tin bởi GetResponse</span>
+      </div>
     </div>
   );
 };
