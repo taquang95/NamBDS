@@ -42,7 +42,7 @@ const App: React.FC = () => {
   }, []);
 
   const handleSuccess = () => {
-    // This is a fallback if needed, though direct form submit handles redirection
+    // Logic này sẽ được gọi nếu form có callback, nhưng GetResponse thường tự redirect
     window.location.hash = 'thanks';
   };
 
