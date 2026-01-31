@@ -53,7 +53,7 @@ export const LeadForm: React.FC<LeadFormProps> = ({ onSuccess }) => {
     <div className="bg-white rounded-2xl shadow-2xl border border-gray-100 overflow-hidden">
       <div className="bg-blue-50 p-6 text-center border-b border-blue-100">
         <h3 className="text-blue-600 font-bold text-lg uppercase">Nhận Tài Liệu Qua Email</h3>
-        <p className="text-gray-500 text-[11px] mt-1">Vui lòng nhập thông tin chính xác</p>
+        <p className="text-red-600 font-bold text-sm mt-1 animate-pulse">Chỉ còn 5 suất miễn phí</p>
       </div>
 
       <div className="p-6 md:p-8">

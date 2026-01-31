@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { LeadForm } from './components/LeadForm';
 import { CheckIcon, LocationIcon, ChartIcon, BuildingIcon, DownloadIcon } from './components/Icons';
 import { SocialProofPopup } from './components/SocialProofPopup';
+import { ThankYou } from './components/ThankYou';
 
 const useScrollReveal = () => {
   useEffect(() => {
@@ -26,16 +27,45 @@ const useScrollReveal = () => {
   }, []);
 };
 
+// Component hiển thị số người đang xem
+const LiveViewerCount = () => {
+  const [count, setCount] = useState(431);
+
+  useEffect(() => {
+    // Giả lập số người xem thay đổi ngẫu nhiên
+    const interval = setInterval(() => {
+      setCount(prev => {
+        const change = Math.floor(Math.random() * 5) - 2; // Tăng/giảm từ -2 đến +2
+        return prev + change;
+      });
+    }, 3000);
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <div className="flex items-center gap-2 mb-8 opacity-0 animate-reveal-up delay-500 text-white font-medium text-sm sm:text-base">
+       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6 text-yellow-500 animate-bounce-subtle">
+         <path fillRule="evenodd" d="M9.401 3.003c1.155-2 4.043-2 5.197 0l7.355 12.748c1.154 2-.29 4.5-2.599 4.5H4.645c-2.309 0-3.752-2.5-2.598-4.5L9.4 3.003zM12 8.25a.75.75 0 01.75.75v3.75a.75.75 0 01-1.5 0V9a.75.75 0 01.75-.75zm0 8.25a.75.75 0 100-1.5.75.75 0 000 1.5z" clipRule="evenodd" />
+       </svg>
+       <span>Có</span>
+       <div className="relative px-2 py-0.5 bg-gray-200 text-red-600 font-bold rounded flex items-center shadow-inner">
+         <span className="tabular-nums tracking-wide">{count}</span>
+         {/* Con trỏ nhấp nháy màu đỏ */}
+         <span className="w-0.5 h-4 bg-red-600 ml-1 animate-cursor-blink"></span>
+       </div>
+       <span>người đang xem trang này</span>
+    </div>
+  );
+};
+
 const App: React.FC = () => {
   const [downloadReady, setDownloadReady] = useState(false);
   useScrollReveal();
 
   const handleSuccess = () => {
     setDownloadReady(true);
-    const element = document.getElementById('download-area');
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
+    // Cuộn lên đầu trang để người dùng thấy trang cảm ơn ngay lập tức
+    window.scrollTo({ top: 0, behavior: 'instant' });
   };
 
   const scrollToRegister = (e: React.MouseEvent<HTMLAnchorElement>) => {
@@ -54,6 +84,12 @@ const App: React.FC = () => {
     }
   };
 
+  // NẾU ĐÃ GỬI FORM THÀNH CÔNG -> HIỂN THỊ TRANG CẢM ƠN
+  if (downloadReady) {
+    return <ThankYou />;
+  }
+
+  // NẾU CHƯA -> HIỂN THỊ LANDING PAGE
   return (
     <div className="font-sans text-gray-800 bg-gray-50 min-h-screen">
       <style>{`
@@ -67,11 +103,25 @@ const App: React.FC = () => {
           25% { transform: rotate(5deg); }
           75% { transform: rotate(-5deg); }
         }
+        @keyframes blink {
+          0%, 100% { opacity: 1; }
+          50% { opacity: 0; }
+        }
+        @keyframes bounce-subtle {
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(-3px); }
+        }
         .animate-float {
           animation: float 6s ease-in-out infinite;
         }
         .animate-shake-slow {
           animation: shake 0.5s ease-in-out infinite;
+        }
+        .animate-cursor-blink {
+          animation: blink 1s step-end infinite;
+        }
+        .animate-bounce-subtle {
+          animation: bounce-subtle 2s ease-in-out infinite;
         }
         .bg-grid-pattern {
           background-image: linear-gradient(to right, rgba(255,255,255,0.05) 1px, transparent 1px),
@@ -148,7 +198,11 @@ const App: React.FC = () => {
                 Xem Nội Dung
               </a>
             </div>
-            <div className="flex items-center gap-4 text-sm text-gray-300 bg-black/20 p-3 rounded-lg backdrop-blur-sm w-fit opacity-0 animate-reveal-up delay-500">
+
+            {/* LIVE VIEWER COUNT ADDED HERE */}
+            <LiveViewerCount />
+
+            <div className="flex items-center gap-4 text-sm text-gray-300 bg-black/20 p-3 rounded-lg backdrop-blur-sm w-fit opacity-0 animate-reveal-up delay-600">
               <div className="flex -space-x-3">
                  <img className="w-10 h-10 rounded-full border-2 border-brand-900 transition-transform hover:scale-110" src="https://i.pravatar.cc/100?img=11" alt="User" />
                  <img className="w-10 h-10 rounded-full border-2 border-brand-900 transition-transform hover:scale-110" src="https://i.pravatar.cc/100?img=12" alt="User" />
@@ -261,71 +315,77 @@ const App: React.FC = () => {
       </section>
 
       {/* AUTHOR SECTION */}
-      <section className="bg-gray-50 py-24 relative overflow-hidden">
-        <div className="absolute top-0 left-0 w-64 h-64 bg-gray-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30 -translate-x-1/2 -translate-y-1/2"></div>
-        <div className="absolute bottom-0 right-0 w-64 h-64 bg-brand-gold rounded-full mix-blend-multiply filter blur-3xl opacity-10 translate-x-1/2 translate-y-1/2"></div>
-        <div className="container mx-auto px-4 flex flex-col md:flex-row items-center gap-16 relative z-10">
-            <div className="md:w-5/12 flex justify-center reveal-on-scroll">
-                <div className="relative group">
-                    <div className="absolute inset-0 bg-brand-gold rounded-full blur opacity-20 group-hover:opacity-40 transition-opacity duration-500 scale-90 group-hover:scale-110"></div>
-                    <div className="w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-8 border-white shadow-2xl relative z-10 transform transition-transform duration-700 group-hover:scale-105">
-                         <img src="https://i.postimg.cc/vHP9H9t7/nambds.jpg" alt="Nguyễn Nam BĐS" className="w-full h-full object-cover transform transition-transform duration-700 group-hover:rotate-2" />
-                    </div>
-                    <div className="absolute bottom-6 right-6 z-20 bg-blue-600 text-white p-3 rounded-full shadow-lg border-4 border-white animate-bounce-slow">
-                        <CheckIcon className="w-6 h-6"/>
-                    </div>
-                </div>
+      <section className="bg-white py-16 md:py-24 border-t border-gray-100">
+        <div className="container mx-auto px-4">
+          <div className="flex flex-col md:flex-row gap-10 md:gap-16 items-center">
+            {/* Author Image */}
+            <div className="w-56 h-56 md:w-72 md:h-72 shrink-0 relative reveal-on-scroll">
+               <div className="w-full h-full rounded-full p-1 border border-gray-100 shadow-xl relative z-10 bg-white">
+                  <img 
+                    src="https://i.postimg.cc/vHP9H9t7/nambds.jpg" 
+                    alt="Nguyễn Nam BĐS" 
+                    className="w-full h-full rounded-full object-cover" 
+                  />
+               </div>
+               {/* Check Badge */}
+               <div className="absolute bottom-4 right-4 z-20 bg-blue-600 text-white w-10 h-10 rounded-full border-4 border-white flex items-center justify-center shadow-lg">
+                   <CheckIcon className="w-5 h-5"/>
+               </div>
             </div>
-            <div className="md:w-7/12 text-center md:text-left reveal-on-scroll delay-200">
-                <h3 className="text-3xl font-bold text-gray-900 mb-2 hover:text-brand-gold transition-colors">Nguyễn Nam</h3>
-                <p className="text-brand-gold font-bold mb-6 text-xl tracking-wide uppercase">Cố vấn đầu tư bất động sản - GĐKD Trung Thực Land</p>
-                <div className="relative mb-8">
-                  <svg className="absolute top-0 left-0 transform -translate-x-6 -translate-y-4 h-12 w-12 text-gray-200" fill="currentColor" viewBox="0 0 32 32" aria-hidden="true">
-                    <path d="M9.352 4C4.456 7.456 1 13.12 1 19.36c0 5.088 3.072 8.064 6.624 8.064 3.36 0 5.856-2.688 5.856-5.856 0-3.168-2.208-5.472-5.088-5.472-.576 0-1.344.096-1.536.192.48-3.264 3.552-7.104 6.624-9.024L9.352 4zm16.512 0c-4.8 3.456-8.256 9.12-8.256 15.36 0 5.088 3.072 8.064 6.624 8.064 3.264 0 5.856-2.688 5.856-5.856 0-3.168-2.304-5.472-5.184-5.472-.576 0-1.248.096-1.44.192.48-3.264 3.552-7.104 6.624-9.024L25.864 4z" />
-                  </svg>
-                  <p className="text-gray-700 text-lg italic leading-relaxed relative z-10 pl-6 transform transition-all hover:translate-x-1">
-                      "Kiến thức là chìa khóa để mở cánh cửa niềm tin của khách hàng. Với kinh nghiệm thực chiến nhiều năm trong ngành Bất Động Sản, tôi đã đúc kết bộ tài liệu này nhằm giúp các bạn môi giới mới và lâu năm có cái nhìn tổng quan và chi tiết nhất về một dự án bất kỳ"
-                  </p>
-                </div>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
-                  <a href="https://youtube.com/@nguyennambdstuyendung?si=AAwDKLGxxYzugdjY" target="_blank" rel="noreferrer" className="group bg-white p-4 rounded-xl shadow-sm border border-gray-200 hover:border-brand-gold/50 hover:shadow-md transition-all flex items-center gap-4 transform hover:-translate-x-1">
-                    <div className="bg-red-50 text-red-600 p-3 rounded-full group-hover:bg-red-100 transition-colors transform group-hover:scale-110">
-                       <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
-                    </div>
-                    <div className="text-left">
-                       <div className="text-xs text-gray-500 font-semibold uppercase">Kênh Youtube</div>
-                       <div className="font-bold text-gray-900">Nguyễn Nam BĐS</div>
-                    </div>
+
+            {/* Author Content */}
+            <div className="flex-1 reveal-on-scroll delay-100">
+               <p className="text-gray-600 italic text-lg md:text-xl leading-relaxed mb-10">
+                 "Kiến thức là chìa khóa để mở cánh cửa niềm tin của khách hàng. Với kinh nghiệm thực chiến nhiều năm trong ngành Bất Động Sản, tôi đã đúc kết bộ tài liệu này nhằm giúp các bạn môi giới mới và lâu năm có cái nhìn tổng quan và chi tiết nhất về một dự án bất kỳ"
+               </p>
+               
+               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  {/* Youtube */}
+                  <a href="https://youtube.com/@nguyennambdstuyendung?si=AAwDKLGxxYzugdjY" target="_blank" rel="noreferrer" className="flex items-center gap-4 p-4 rounded-xl border border-gray-100 bg-white shadow-sm hover:shadow-md transition-all hover:-translate-y-1">
+                     <div className="w-10 h-10 bg-red-50 text-red-600 rounded-lg flex items-center justify-center shrink-0">
+                        <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
+                     </div>
+                     <div>
+                        <div className="text-[10px] uppercase text-gray-400 font-bold tracking-wider">Kênh Youtube</div>
+                        <div className="font-bold text-gray-900">Nguyễn Nam BĐS</div>
+                     </div>
                   </a>
-                  <a href="https://nambds.vn" target="_blank" rel="noreferrer" className="group bg-white p-4 rounded-xl shadow-sm border border-gray-200 hover:border-brand-gold/50 hover:shadow-md transition-all flex items-center gap-4 transform hover:translate-x-1">
-                    <div className="bg-blue-50 text-blue-600 p-3 rounded-full group-hover:bg-blue-100 transition-colors transform group-hover:scale-110">
-                       <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" /></svg>
-                    </div>
-                    <div className="text-left">
-                       <div className="text-xs text-gray-500 font-semibold uppercase">Website Chính Thức</div>
-                       <div className="font-bold text-gray-900">nambds.vn</div>
-                    </div>
+
+                  {/* Website */}
+                  <a href="https://nambds.vn" target="_blank" rel="noreferrer" className="flex items-center gap-4 p-4 rounded-xl border border-gray-100 bg-white shadow-sm hover:shadow-md transition-all hover:-translate-y-1">
+                     <div className="w-10 h-10 bg-blue-50 text-blue-600 rounded-lg flex items-center justify-center shrink-0">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-5 h-5"><path strokeLinecap="round" strokeLinejoin="round" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" /></svg>
+                     </div>
+                     <div>
+                        <div className="text-[10px] uppercase text-gray-400 font-bold tracking-wider">Website Chính Thức</div>
+                        <div className="font-bold text-gray-900">nambds.vn</div>
+                     </div>
                   </a>
-                  <a href="https://www.facebook.com/share/1ECmmf8ipx/?mibextid=wwXIfr" target="_blank" rel="noreferrer" className="group bg-white p-4 rounded-xl shadow-sm border border-gray-200 hover:border-brand-gold/50 hover:shadow-md transition-all flex items-center gap-4 transform hover:-translate-x-1">
-                    <div className="bg-blue-50 text-blue-700 p-3 rounded-full group-hover:bg-blue-100 transition-colors transform group-hover:scale-110">
-                       <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"></path></svg>
-                    </div>
-                    <div className="text-left">
-                       <div className="text-xs text-gray-500 font-semibold uppercase">Facebook</div>
-                       <div className="font-bold text-gray-900">Nguyễn Nam</div>
-                    </div>
+
+                  {/* Facebook */}
+                  <a href="https://www.facebook.com/share/1ECmmf8ipx/?mibextid=wwXIfr" target="_blank" rel="noreferrer" className="flex items-center gap-4 p-4 rounded-xl border border-gray-100 bg-white shadow-sm hover:shadow-md transition-all hover:-translate-y-1">
+                     <div className="w-10 h-10 bg-blue-50 text-blue-700 rounded-lg flex items-center justify-center shrink-0">
+                        <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"></path></svg>
+                     </div>
+                     <div>
+                        <div className="text-[10px] uppercase text-gray-400 font-bold tracking-wider">Facebook</div>
+                        <div className="font-bold text-gray-900">Nguyễn Nam</div>
+                     </div>
                   </a>
-                  <a href="https://www.tiktok.com/@namtuyendung?_r=1&_t=ZS-93Q3PmFDmbM" target="_blank" rel="noreferrer" className="group bg-white p-4 rounded-xl shadow-sm border border-gray-200 hover:border-brand-gold/50 hover:shadow-md transition-all flex items-center gap-4 transform hover:translate-x-1">
-                    <div className="bg-slate-100 text-slate-900 p-3 rounded-full group-hover:bg-slate-200 transition-colors transform group-hover:scale-110">
-                        <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/></svg>
-                    </div>
-                    <div className="text-left">
-                       <div className="text-xs text-gray-500 font-semibold uppercase">Kênh Tiktok</div>
-                       <div className="font-bold text-gray-900">Nam Tuyển Dụng</div>
-                    </div>
+
+                  {/* Tiktok */}
+                  <a href="https://www.tiktok.com/@namtuyendung?_r=1&_t=ZS-93Q3PmFDmbM" target="_blank" rel="noreferrer" className="flex items-center gap-4 p-4 rounded-xl border border-gray-100 bg-white shadow-sm hover:shadow-md transition-all hover:-translate-y-1">
+                     <div className="w-10 h-10 bg-gray-100 text-black rounded-lg flex items-center justify-center shrink-0">
+                        <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/></svg>
+                     </div>
+                     <div>
+                        <div className="text-[10px] uppercase text-gray-400 font-bold tracking-wider">Kênh Tiktok</div>
+                        <div className="font-bold text-gray-900">Nam Tuyển Dụng</div>
+                     </div>
                   </a>
-                </div>
+               </div>
             </div>
+          </div>
         </div>
       </section>
 
