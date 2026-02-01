@@ -112,7 +112,7 @@ export const ThankYou = () => {
         </div>
 
         {/* Countdown */}
-        <div className="flex justify-center gap-4">
+        <div className="flex justify-center gap-4 mb-12">
             <div className="text-center">
                 <div className="bg-green-600 text-white text-3xl md:text-4xl font-bold py-3 px-4 rounded-lg shadow-lg w-20 md:w-24">
                     00
@@ -131,6 +131,31 @@ export const ThankYou = () => {
                 </div>
                 <div className="text-gray-600 mt-2 font-medium">Giây</div>
             </div>
+        </div>
+
+        {/* Email Instruction Section */}
+        <div className="max-w-2xl mx-auto text-left bg-blue-50 rounded-xl p-6 border border-blue-200 shadow-sm relative overflow-hidden">
+             <div className="absolute top-0 right-0 p-4 opacity-10">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-24 h-24 text-blue-600">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" />
+                </svg>
+             </div>
+             <div className="flex flex-col sm:flex-row items-start gap-4 relative z-10">
+                <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center shrink-0 text-blue-600 shadow-md border border-blue-100">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" />
+                    </svg>
+                </div>
+                <div>
+                    <h3 className="font-bold text-blue-900 text-lg mb-2 uppercase">Lưu ý quan trọng</h3>
+                    <p className="text-gray-700 text-sm mb-4 leading-relaxed">
+                        Tài liệu đã được gửi tự động. Vui lòng kiểm tra kỹ cả <strong>Hộp thư đến (Inbox)</strong>, <strong>Quảng cáo (Promotions)</strong> và <strong>Spam</strong> để không bỏ lỡ.
+                    </p>
+                    <div className="text-xs text-blue-800 bg-white/60 p-3 rounded border border-blue-100 inline-block">
+                        💡 <strong>Mẹo:</strong> Nếu thấy mail trong Spam, hãy bấm <strong>"Report not spam"</strong> (Báo cáo không phải spam) để hệ thống gửi các bài học tiếp theo vào Inbox nhé!
+                    </div>
+                </div>
+             </div>
         </div>
 
       </div>
