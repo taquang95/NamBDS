@@ -61,7 +61,7 @@ export const ThankYou = () => {
           CÒN 1 BƯỚC NỮA...
         </h1>
         <h2 className="text-xl md:text-2xl font-bold text-gray-900 mb-8 max-w-2xl mx-auto leading-relaxed">
-          Vào Nhóm Kín Để Nhận Thông Tin Và <br/> Cách Thức Học Kèm Theo Tài Liệu
+          Vào Nhóm Kín Để Nhận Thông Tin Hơn Bạn Nhé
         </h2>
 
         {/* Arrow Left (Desktop only) */}
@@ -107,7 +107,7 @@ export const ThankYou = () => {
         <div className="bg-orange-50 border-l-4 border-orange-500 p-4 mb-10 text-left max-w-2xl mx-auto">
             <p className="text-gray-800 text-lg">
                 <span className="text-2xl mr-2">🔔</span>
-                <span className="text-red-500 font-bold">Nếu bạn không vào nhóm kín</span>, chúng tôi không thể gửi link vào lớp học online cho bạn được. Vì vậy hãy vào nhóm ngay trước khi nhóm đóng lại trong:
+                <span className="text-red-500 font-bold">Nếu bạn không vào nhóm kín</span>, khi có nội dung mới thì tôi sẽ không thể cập nhật nhanh chóng cho bạn được. Vì vậy hãy vào nhóm ngay trước khi nhóm đóng lại trong:
             </p>
         </div>
 
