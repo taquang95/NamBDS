@@ -8,13 +8,13 @@ const CONFIG = {
   GOOGLE_SCRIPT_URL: "https://script.google.com/macros/s/AKfycbxVbliZo4bC9O9s1By7myz9rtxr1qcTFs74gATgcJtqaRlC81o-9VQsaZ5Ef75CB1hjng/exec", 
   
   // 2. API Key lấy từ GetResponse
-  GETRESPONSE_API_KEY: "djeha1fpuo1s1u6c50lvgil49j8ucb9b", 
+  GETRESPONSE_API_KEY: "xs8pvpkijpr1oktsbutchtw5bkinkxa1", 
   
   // 3. Campaign Token (Token danh bạ)
   // LƯU Ý QUAN TRỌNG:
   // - Đây là mã 5 ký tự (Ví dụ: pT12z), KHÔNG PHẢI tên danh bạ.
   // - Cách lấy: Vào GetResponse -> Danh bạ (Contacts) -> Bấm dấu 3 chấm bên phải tên danh bạ -> Cài đặt (Settings) -> Xem dòng "Token danh bạ".
-  CAMPAIGN_ID: "PJZOJ" // <--- HÃY DÁN TOKEN CỦA BẠN VÀO GIỮA 2 DẤU NGOẶC KÉP NÀY
+  CAMPAIGN_ID: "LWZuE" // <--- HÃY DÁN TOKEN CỦA BẠN VÀO GIỮA 2 DẤU NGOẶC KÉP NÀY
 };
 
 interface LeadFormProps {

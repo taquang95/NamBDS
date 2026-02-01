@@ -3,6 +3,16 @@ import React, { useState, useEffect } from 'react';
 
 export const ThankYou = () => {
   const [timeLeft, setTimeLeft] = useState(300); // 5 phút = 300 giây
+  const [progress, setProgress] = useState(5); // Bắt đầu từ 5%
+
+  useEffect(() => {
+    // Hiệu ứng chạy thanh tiến độ từ thấp đến cao
+    const timer = setTimeout(() => {
+        setProgress(95);
+    }, 300); // Delay nhẹ để người dùng thấy hiệu ứng chạy
+
+    return () => clearTimeout(timer);
+  }, []);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -36,7 +46,10 @@ export const ThankYou = () => {
         {/* Progress Bar Container */}
         <div className="w-full max-w-md mx-auto h-8 bg-gray-200 rounded-full border border-gray-300 mb-8 relative overflow-hidden shadow-inner">
              {/* Striped Red Bar */}
-            <div className="h-full bg-red-600 relative animate-pulse" style={{ width: '90%' }}>
+            <div 
+                className="h-full bg-red-600 relative transition-all duration-[2000ms] ease-out" 
+                style={{ width: `${progress}%` }}
+            >
                 <div className="absolute inset-0" style={{
                     backgroundImage: 'linear-gradient(45deg,rgba(255,255,255,.15) 25%,transparent 25%,transparent 50%,rgba(255,255,255,.15) 50%,rgba(255,255,255,.15) 75%,transparent 75%,transparent)',
                     backgroundSize: '1rem 1rem'
