@@ -53,6 +53,14 @@ export const ThankYou = () => {
                 <h3 className="font-bold text-blue-900 text-xl mb-6 flex items-center gap-2">
                     <span className="text-2xl">📧</span> HƯỚNG DẪN NHẬN TÀI LIỆU
                 </h3>
+
+                <div className="mb-6 rounded-lg overflow-hidden border border-gray-200 shadow-sm">
+                    <img 
+                        src="https://i.postimg.cc/tg23B0kC/huong-dan.png" 
+                        alt="Hướng dẫn kiểm tra email chi tiết" 
+                        className="w-full h-auto object-cover"
+                    />
+                </div>
                 
                 <div className="space-y-4 bg-white/80 p-5 rounded-lg backdrop-blur-sm border border-blue-100 shadow-sm">
                     <div className="flex items-start gap-4">
@@ -84,14 +92,6 @@ export const ThankYou = () => {
                             </p>
                         </div>
                     </div>
-                </div>
-
-                <div className="mt-6 rounded-lg overflow-hidden border border-gray-200 shadow-sm">
-                    <img 
-                        src="https://i.postimg.cc/tg23B0kC/huong-dan.png" 
-                        alt="Hướng dẫn kiểm tra email chi tiết" 
-                        className="w-full h-auto object-cover"
-                    />
                 </div>
 
                 <p className="text-gray-500 text-xs mt-6 italic text-center">
