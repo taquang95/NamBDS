@@ -86,6 +86,14 @@ export const ThankYou = () => {
                     </div>
                 </div>
 
+                <div className="mt-6 rounded-lg overflow-hidden border border-gray-200 shadow-sm">
+                    <img 
+                        src="https://i.postimg.cc/tg23B0kC/huong-dan.png" 
+                        alt="Hướng dẫn kiểm tra email chi tiết" 
+                        className="w-full h-auto object-cover"
+                    />
+                </div>
+
                 <p className="text-gray-500 text-xs mt-6 italic text-center">
                     * Hệ thống đã gửi email tự động. Có thể mất 1-2 phút để email đến hộp thư của bạn.
                 </p>
