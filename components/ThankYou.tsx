@@ -56,7 +56,7 @@ export const ThankYou = () => {
 
                 <div className="mb-6 rounded-lg overflow-hidden border border-gray-200 shadow-sm">
                     <img 
-                        src="https://i.postimg.cc/tg23B0kC/huong-dan.png" 
+                        src="https://i.postimg.cc/KzGX5zLD/123123.png" 
                         alt="Hướng dẫn kiểm tra email chi tiết" 
                         className="w-full h-auto object-cover"
                     />
