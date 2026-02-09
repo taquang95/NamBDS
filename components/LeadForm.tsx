@@ -1,20 +1,12 @@
-import React, { useState } from 'react';
+
+import React, { useState, useRef } from 'react';
 import { DownloadIcon } from './Icons';
 import { useGetResponse } from '../hooks/useGetResponse';
 
-// --- CẤU HÌNH KẾT NỐI (QUAN TRỌNG: CẦN ĐIỀN ĐÚNG THÔNG TIN) ---
+// --- CẤU HÌNH KẾT NỐI ---
+// CHỈ GIỮ LẠI URL. API KEY và CAMPAIGN ID đã chuyển sang Google Script (Backend) để bảo mật.
 const CONFIG = {
-  // 1. Link Web App Google Script (Giữ nguyên nếu bạn đã deploy đúng)
-  GOOGLE_SCRIPT_URL: "https://script.google.com/macros/s/AKfycbxVbliZo4bC9O9s1By7myz9rtxr1qcTFs74gATgcJtqaRlC81o-9VQsaZ5Ef75CB1hjng/exec", 
-  
-  // 2. API Key lấy từ GetResponse
-  GETRESPONSE_API_KEY: "xs8pvpkijpr1oktsbutchtw5bkinkxa1", 
-  
-  // 3. Campaign Token (Token danh bạ)
-  // LƯU Ý QUAN TRỌNG:
-  // - Đây là mã 5 ký tự (Ví dụ: pT12z), KHÔNG PHẢI tên danh bạ.
-  // - Cách lấy: Vào GetResponse -> Danh bạ (Contacts) -> Bấm dấu 3 chấm bên phải tên danh bạ -> Cài đặt (Settings) -> Xem dòng "Token danh bạ".
-  CAMPAIGN_ID: "LWZuE" // <--- HÃY DÁN TOKEN CỦA BẠN VÀO GIỮA 2 DẤU NGOẶC KÉP NÀY
+  GOOGLE_SCRIPT_URL: "https://script.google.com/macros/s/AKfycbzZCVJ4sN6-VI4WKYOXcjV7GetpIb126HZlH2hN_k9UW9wWAnpaZrdT-oHy5Ir-UR0kMA/exec", 
 };
 
 interface LeadFormProps {
@@ -23,29 +15,31 @@ interface LeadFormProps {
 
 export const LeadForm: React.FC<LeadFormProps> = ({ onSuccess }) => {
   const [formData, setFormData] = useState({ name: '', email: '' });
+  const [honeyPot, setHoneyPot] = useState(''); // Trường ẩn để bẫy bot
+  const formStartTime = useRef(Date.now()); // Thời điểm bắt đầu load form
   
-  // Sử dụng Hook kết nối GetResponse
   const { submitLead, isLoading, error } = useGetResponse({
-    proxyUrl: CONFIG.GOOGLE_SCRIPT_URL.trim(),
-    apiKey: CONFIG.GETRESPONSE_API_KEY.trim(),
-    campaignId: CONFIG.CAMPAIGN_ID.trim()
+    proxyUrl: CONFIG.GOOGLE_SCRIPT_URL.trim()
   });
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Kiểm tra xem người dùng đã điền Token chưa
-    if (!CONFIG.CAMPAIGN_ID || CONFIG.CAMPAIGN_ID === "") {
-      alert("LỖI CẤU HÌNH: Bạn chưa điền 'Token danh bạ' vào file components/LeadForm.tsx. Vui lòng kiểm tra lại hướng dẫn.");
-      return;
+    // SPAM CHECK 2: Time Check
+    // Nếu điền form quá nhanh (dưới 3 giây) -> Khả năng cao là Bot hoặc Spam
+    const timeElapsed = Date.now() - formStartTime.current;
+    if (timeElapsed < 3000) {
+        console.warn("Form submitted too quickly. Potential bot.");
+        // Vẫn gọi hàm submit nhưng logic bên trong hook có thể xử lý hoặc chỉ cần return success giả
+        // Ở đây ta cứ gửi đi, nhưng server Google Script có thể chặn IP nếu cần
     }
-    
-    // Gọi hàm gửi dữ liệu từ Hook
-    const result = await submitLead(formData.name, formData.email);
+
+    // Gọi hàm gửi dữ liệu (Bao gồm cả honeypot để check kỹ hơn)
+    const result = await submitLead(formData.name, formData.email, honeyPot);
 
     if (result.success) {
-      setFormData({ name: '', email: '' }); // Xóa trắng form
-      onSuccess(); // Chuyển sang màn hình cảm ơn/tải xuống
+      setFormData({ name: '', email: '' });
+      onSuccess();
     }
   };
 
@@ -58,6 +52,19 @@ export const LeadForm: React.FC<LeadFormProps> = ({ onSuccess }) => {
 
       <div className="p-6 md:p-8">
         <form onSubmit={handleSubmit} className="space-y-4">
+          
+          {/* HONEYPOT FIELD (Ẩn với người dùng thật, Bot sẽ tự động điền) */}
+          <div className="hidden opacity-0 h-0 w-0 overflow-hidden">
+             <input 
+                type="text" 
+                name="b_check_field" 
+                tabIndex={-1} 
+                autoComplete="off"
+                value={honeyPot}
+                onChange={(e) => setHoneyPot(e.target.value)}
+             />
+          </div>
+
           <div>
             <label className="block text-xs font-bold text-gray-600 uppercase mb-1">Họ tên</label>
             <input
