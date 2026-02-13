@@ -26,7 +26,7 @@ export const useGetResponse = ({ proxyUrl }: UseGetResponseConfig) => {
       return { success: false, message: msg };
     }
 
-    // SPAM CHECK 1: Nếu trường honeypot có dữ liệu -> Chặn ngay lập tức (Giả vờ thành công để bot đi chỗ khác)
+    // SPAM CHECK 1: Nếu trường honeypot có dữ liệu -> Chặn ngay lập tức
     if (honeypot !== "") {
       console.log("Spam bot detected via honeypot");
       setIsLoading(false);
@@ -37,11 +37,8 @@ export const useGetResponse = ({ proxyUrl }: UseGetResponseConfig) => {
       const params = new URLSearchParams();
       params.append('name', name.trim());
       params.append('email', email.trim());
-      // Gửi trường b_check rỗng lên server, nếu server thấy có dữ liệu -> chặn
       params.append('b_check', honeypot); 
 
-      // Gửi request tới Google Apps Script
-      // KHÔNG gửi API Key và Campaign ID ở đây nữa -> Bảo mật
       const response = await fetch(proxyUrl.trim(), {
         method: "POST",
         headers: {
@@ -50,11 +47,18 @@ export const useGetResponse = ({ proxyUrl }: UseGetResponseConfig) => {
         body: params,
       });
 
+      const text = await response.text();
+      const lowerText = text.toLowerCase();
+
+      // XỬ LÝ LỖI PHỔ BIẾN CỦA GOOGLE APPS SCRIPT
+      // Lỗi "User is disabled" hoặc "ScriptError" thường do cài đặt sai quyền truy cập khi Deploy
+      if (lowerText.includes("user is disabled") || lowerText.includes("scripterror")) {
+          throw new Error("Lỗi Deployment (User is disabled)");
+      }
+
       if (!response.ok) {
         throw new Error(`Server error: ${response.status}`);
       }
-
-      const text = await response.text();
       
       if (!text || text.trim() === "") {
          setIsLoading(false);
@@ -65,15 +69,22 @@ export const useGetResponse = ({ proxyUrl }: UseGetResponseConfig) => {
       try {
         data = JSON.parse(text);
       } catch (e) {
+        // Nếu không parse được JSON và nội dung bắt đầu bằng < (HTML), thường là trang báo lỗi của Google
         if (text.trim().startsWith("<")) {
-           throw new Error("Lỗi kết nối: Server phản hồi HTML không hợp lệ.");
+           throw new Error("Lỗi kết nối Server Google: Vui lòng kiểm tra lại cấu hình Deployment.");
         }
         return { success: true };
       }
 
+      // Xử lý lỗi trả về từ Logic trong Script
+      if (data.result === "error" || (data.success === false)) {
+          throw new Error(data.message || data.error || "Lỗi xử lý từ Server.");
+      }
+
       if (data.code && data.message) {
         const lowerMsg = data.message.toLowerCase();
-        if (lowerMsg.includes("queue") || lowerMsg.includes("already added")) {
+        // Bỏ qua lỗi trùng contact (coi như thành công để user đi tiếp)
+        if (lowerMsg.includes("queue") || lowerMsg.includes("already added") || lowerMsg.includes("exist")) {
             setIsLoading(false);
             return { success: true };
         }
@@ -92,7 +103,8 @@ export const useGetResponse = ({ proxyUrl }: UseGetResponseConfig) => {
       let errorMessage = "Đã có lỗi xảy ra. Vui lòng thử lại sau.";
       
       if (err.message) {
-          errorMessage = `Lỗi: ${err.message}`;
+          // Loại bỏ tiền tố "Lỗi:" hoặc "Error:" nếu đã có
+          errorMessage = err.message.replace(/^(Lỗi|Error):\s*/i, '');
       }
 
       setError(errorMessage);
