@@ -1,73 +1,75 @@
 
-// HƯỚNG DẪN CẬP NHẬT GOOGLE APPS SCRIPT (BACKEND) - KHẮC PHỤC LỖI "USER IS DISABLED"
+// HƯỚNG DẪN CẤU HÌNH MAUTIC VÀ DEPLOY (TRIỂN KHAI)
 // -------------------------------------------------------------------------------------
-// Lỗi "User is disabled" xuất hiện khi bạn chọn sai quyền truy cập khi Deploy.
-// Lỗi "TypeError: Cannot read properties of undefined" xuất hiện khi bạn nhấn "Run" trong trình biên tập.
+// Bước 1: Tạo Form trong Mautic (Components -> Forms -> New -> Standalone Form).
+//         Thêm 2 fields: Text (label: Họ tên, alias: firstname) và Email (label: Email, alias: email).
+//         Lưu lại và nhớ số ID của Form (ví dụ: id=1).
 //
-// BƯỚC 1: Truy cập https://script.google.com/
-// BƯỚC 2: Dán code bên dưới vào file Code.gs
-// BƯỚC 3: Nhấn nút "Deploy" (Triển khai) màu xanh -> Chọn "New deployment" (Triển khai mới).
-// BƯỚC 4: Bấm vào biểu tượng bánh răng (Settings) cạnh dòng "Select type", chọn "Web app".
-// BƯỚC 5: Cấu hình Y HỆT như sau (QUAN TRỌNG):
-//         - Description: "Fix v2"
-//         - Execute as (Thực thi dưới dạng): "Me (email_của_bạn@gmail.com)"  <-- QUAN TRỌNG
-//         - Who has access (Ai có quyền truy cập): "Anyone (Bất kỳ ai)"      <-- QUAN TRỌNG
-// BƯỚC 6: Nhấn "Deploy". Copy URL mới và cập nhật vào file LeadForm.tsx
+// Bước 2: Điền thông tin vào biến CONFIG bên dưới.
+//
+// Bước 3: Nhấn "Deploy" (Triển khai) -> "New deployment" (Triển khai mới).
+//         Chọn type: "Web app", Execute as: "Me", Who has access: "Anyone".
+//         Nhấn Deploy -> Copy URL mới cập nhật vào Frontend.
 // -------------------------------------------------------------------------------------
 
 function doPost(e) {
-  // --- CẤU HÌNH BẢO MẬT (SERVER SIDE) ---
+  // --- CẤU HÌNH KẾT NỐI MAUTIC (SERVER SIDE) ---
   var CONFIG = {
-    API_KEY: "51dl7e5e6sgwmwd6u7p6yzef6pri21u9", // API Key GetResponse
-    CAMPAIGN_ID: "LWZuE"                         // Token Danh bạ
+    // 1. Domain Mautic của bạn (Không có dấu / ở cuối)
+    MAUTIC_BASE_URL: "https://mautic.nambds.vn", 
+    
+    // 2. ID của Form bạn vừa tạo trong Mautic
+    MAUTIC_FORM_ID: "1", 
+    
+    // 3. Mapping tên trường (Alias trong Mautic : Tham số từ React gửi lên)
+    // Nếu trong Mautic bạn đặt alias field tên là 'firstname' thì để 'firstname': 'name'
+    FIELD_MAPPING: {
+      'firstname': 'name',  // Mautic Field : React Data
+      'email': 'email'      // Mautic Field : React Data
+    }
   };
-  // --------------------------------------
+  // ------------------------------------------------
 
-  // KHẮC PHỤC LỖI: TypeError khi nhấn Run trực tiếp trong trình biên tập
-  // Tự động tạo dữ liệu giả lập nếu không có biến e (khi chạy thủ công)
+  // Xử lý khi chạy thử (Run) trong trình biên tập
   if (typeof e === 'undefined') {
-    Logger.log("⚠️ CẢNH BÁO: Bạn đang chạy script bằng nút Run. Đang sử dụng dữ liệu giả lập để test...");
-    e = {
-      parameter: {
-        name: "Test User (Run from Editor)",
-        email: "test_run@gmail.com",
-        b_check: ""
-      }
-    };
+    e = { parameter: { name: "Test Mautic", email: "test_mautic@gmail.com", b_check: "" } };
   }
 
-  // Lấy tham số
   var p = e.parameter;
-  var name = p.name;
-  var email = p.email;
   
-  // 1. CHỐNG SPAM
+  // 1. CHỐNG SPAM (Honeypot)
   if (p.b_check && p.b_check !== "") {
      return ContentService.createTextOutput(JSON.stringify({success: true, msg: "Bot detected"})).setMimeType(ContentService.MimeType.JSON);
   }
 
-  // 2. Validate
-  if (!name || !email || name.trim() === "" || email.trim() === "") {
+  // 2. Validate dữ liệu đầu vào
+  if (!p.name || !p.email) {
      return ContentService.createTextOutput(JSON.stringify({success: false, message: "Thiếu tên hoặc email"})).setMimeType(ContentService.MimeType.JSON);
   }
-  
-  var url = "https://api.getresponse.com/v3/contacts";
-  
+
+  // 3. Chuẩn bị Payload gửi sang Mautic
+  // Form Mautic yêu cầu name attribute dạng: mauticform[alias]
   var payload = {
-    "name": name,
-    "email": email,
-    "campaign": { "campaignId": CONFIG.CAMPAIGN_ID },
-    "dayOfCycle": 0
+    'mauticform[formId]': CONFIG.MAUTIC_FORM_ID,
+    'mauticform[return]': '', // Để rỗng để tránh redirect
+    'mauticform[formName]': 'api_submission' // Tên bất kỳ
   };
+
+  // Map dữ liệu từ React vào Payload Mautic
+  for (var mauticField in CONFIG.FIELD_MAPPING) {
+    var reactField = CONFIG.FIELD_MAPPING[mauticField];
+    payload['mauticform[' + mauticField + ']'] = p[reactField];
+  }
+
+  // Endpoint submit form của Mautic
+  var url = CONFIG.MAUTIC_BASE_URL + "/form/submit?formId=" + CONFIG.MAUTIC_FORM_ID;
   
   var options = {
     "method": "post",
-    "headers": {
-      "X-Auth-Token": "api-key " + CONFIG.API_KEY,
-      "Content-Type": "application/json"
-    },
-    "payload": JSON.stringify(payload),
-    "muteHttpExceptions": true
+    // Mautic Form nhận dữ liệu dạng Form Data thông thường
+    "payload": payload,
+    "muteHttpExceptions": true,
+    "followRedirects": true 
   };
   
   try {
@@ -75,14 +77,23 @@ function doPost(e) {
     var responseCode = response.getResponseCode();
     var responseBody = response.getContentText();
     
-    Logger.log("Response Code: " + responseCode);
-    Logger.log("Response Body: " + responseBody);
-
-    // Trả về kết quả nguyên bản từ GetResponse để Frontend xử lý
-    return ContentService.createTextOutput(responseBody).setMimeType(ContentService.MimeType.JSON);
+    // Mautic thường trả về 200 hoặc 302 (Redirect) khi thành công.
+    // Vì ta gọi qua Server Google, redirect sẽ được follow hoặc trả về nội dung trang cảm ơn của Mautic.
+    // Chỉ cần không phải 500 là coi như thành công.
+    
+    if (responseCode >= 200 && responseCode < 400) {
+       return ContentService.createTextOutput(JSON.stringify({
+         success: true, 
+         message: "Đã lưu lead vào Mautic thành công"
+       })).setMimeType(ContentService.MimeType.JSON);
+    } else {
+       return ContentService.createTextOutput(JSON.stringify({
+         success: false, 
+         message: "Mautic Error: " + responseCode
+       })).setMimeType(ContentService.MimeType.JSON);
+    }
       
   } catch (error) {
-    Logger.log("Error: " + error.toString());
     var errorResponse = {
       "success": false,
       "message": "Google Script Error: " + error.toString()
@@ -93,5 +104,5 @@ function doPost(e) {
 }
 
 function doGet(e) {
-  return ContentService.createTextOutput("Backend Script is Running OK. Please use POST method.");
+  return ContentService.createTextOutput("Mautic Proxy is Active.");
 }

@@ -6,7 +6,7 @@ import { useGetResponse } from '../hooks/useGetResponse';
 // --- CẤU HÌNH KẾT NỐI ---
 // CHỈ GIỮ LẠI URL. API KEY và CAMPAIGN ID đã chuyển sang Google Script (Backend) để bảo mật.
 const CONFIG = {
-  GOOGLE_SCRIPT_URL: "https://script.google.com/macros/s/AKfycbw3EiDN-Z5Z8b2cLM26-1BkYH6kf3If4PBymulGL3Nt-vjgq6XuG_tqzyBN8IHBzThjSg/exec", 
+  GOOGLE_SCRIPT_URL: "https://script.google.com/macros/s/AKfycbwriJpkPkRzq2YeO-26kDxTOarorYt4_y44EsI8BYkaHWJyY4OxZyzU5uL7rJ0DN-WmSw/exec", 
 };
 
 interface LeadFormProps {

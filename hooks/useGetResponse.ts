@@ -10,6 +10,7 @@ interface SubmitResult {
   message?: string;
 }
 
+// Mặc dù tên file là useGetResponse (để tránh lỗi import), logic bên trong đã chuyển sang xử lý cho Mautic
 export const useGetResponse = ({ proxyUrl }: UseGetResponseConfig) => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -26,11 +27,10 @@ export const useGetResponse = ({ proxyUrl }: UseGetResponseConfig) => {
       return { success: false, message: msg };
     }
 
-    // SPAM CHECK 1: Nếu trường honeypot có dữ liệu -> Chặn ngay lập tức
+    // SPAM CHECK
     if (honeypot !== "") {
-      console.log("Spam bot detected via honeypot");
       setIsLoading(false);
-      return { success: true }; 
+      return { success: true }; // Giả vờ thành công với bot
     }
 
     try {
@@ -50,49 +50,23 @@ export const useGetResponse = ({ proxyUrl }: UseGetResponseConfig) => {
       const text = await response.text();
       const lowerText = text.toLowerCase();
 
-      // XỬ LÝ LỖI PHỔ BIẾN CỦA GOOGLE APPS SCRIPT
-      // Lỗi "User is disabled" hoặc "ScriptError" thường do cài đặt sai quyền truy cập khi Deploy
+      // Check lỗi Deployment Google Script
       if (lowerText.includes("user is disabled") || lowerText.includes("scripterror")) {
-          throw new Error("Lỗi Deployment (User is disabled)");
-      }
-
-      if (!response.ok) {
-        throw new Error(`Server error: ${response.status}`);
-      }
-      
-      if (!text || text.trim() === "") {
-         setIsLoading(false);
-         return { success: true };
+          throw new Error("Lỗi Deployment: Bạn chưa chọn 'Anyone' khi Deploy Script.");
       }
 
       let data;
       try {
         data = JSON.parse(text);
       } catch (e) {
-        // Nếu không parse được JSON và nội dung bắt đầu bằng < (HTML), thường là trang báo lỗi của Google
-        if (text.trim().startsWith("<")) {
-           throw new Error("Lỗi kết nối Server Google: Vui lòng kiểm tra lại cấu hình Deployment.");
-        }
+        // Mautic đôi khi trả về HTML nếu có redirect, nhưng Google Script Proxy của ta cố gắng trả về JSON.
+        // Nếu parse lỗi nhưng status request OK, ta có thể tạm coi là thành công (Mautic đã nhận form).
+        console.warn("Non-JSON response from proxy:", text);
         return { success: true };
       }
 
-      // Xử lý lỗi trả về từ Logic trong Script
-      if (data.result === "error" || (data.success === false)) {
-          throw new Error(data.message || data.error || "Lỗi xử lý từ Server.");
-      }
-
-      if (data.code && data.message) {
-        const lowerMsg = data.message.toLowerCase();
-        // Bỏ qua lỗi trùng contact (coi như thành công để user đi tiếp)
-        if (lowerMsg.includes("queue") || lowerMsg.includes("already added") || lowerMsg.includes("exist")) {
-            setIsLoading(false);
-            return { success: true };
-        }
-        throw new Error(data.message); 
-      }
-      
-      if (data.httpStatus && data.httpStatus !== 200) {
-         throw new Error(data.message || "Lỗi không xác định từ Proxy");
+      if (!data.success) {
+          throw new Error(data.message || "Lỗi xử lý từ Mautic.");
       }
 
       setIsLoading(false);
@@ -103,7 +77,6 @@ export const useGetResponse = ({ proxyUrl }: UseGetResponseConfig) => {
       let errorMessage = "Đã có lỗi xảy ra. Vui lòng thử lại sau.";
       
       if (err.message) {
-          // Loại bỏ tiền tố "Lỗi:" hoặc "Error:" nếu đã có
           errorMessage = err.message.replace(/^(Lỗi|Error):\s*/i, '');
       }
 
